@@ -1,0 +1,41 @@
+.myButton {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--color-black);
+    width: calc(var(--index) * 10);
+    border-radius: 8px;
+    padding: 3vh 1vw;
+    cursor: pointer;
+}
+
+.myButton__text {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    color: var(--color-white);
+    font-weight: 700;
+    width: fit-content;
+}
+
+.myButton__img {
+}
+
+.myButtonBlack {
+    background-color: var(--color-black);
+}
+
+.myButtonYellow {
+    background-color: var(--color-yellow);
+}
+
+.myButtonWhite {
+    background-color: var(--color-white);
+}
+
+.myButton__textBlack {
+    color: var(--color-black);
+}
+
+.myButton__textWhite {
+    color: var(--color-white);
+}

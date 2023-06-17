@@ -1,0 +1,30 @@
+.homeSection {
+    height: 100vh;
+}
+
+.backgroundImgLeft {
+    width: calc(var(--index) * 10);
+}
+
+.logo {
+    width: calc(var(--index) * 30);
+    position: absolute;
+    left: 20vw;
+    top: 30vh;
+}
+
+.backgroundImgRight {
+    width: calc(var(--index) * 15);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.buttons {
+    position: absolute;
+    left: 35vw;
+    top: 60vh;
+    display: flex;
+    gap: 20px;
+}
+
