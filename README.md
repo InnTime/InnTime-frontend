@@ -17,8 +17,8 @@ You may also see any lint errors in the console.
 ## Current state
 ![img.png](img.png)
 
-Design first section of website. \
-Create customizable Button and Icon components.
+Designed first section of website. \
+Created customizable Button and Icon components.
 
 ## Links
 ### [layout in figma](https://www.figma.com/file/AzFwk8iwlLVP2j3rxVydNh/InnTime?type=design&node-id=0%3A1&t=n4lCEVnVnHJ4s9W3-1)
