@@ -30,10 +30,15 @@
 
 @media (max-width: 630px) {
     .buttons {
-        /*position: static;*/
-        left: 0;
-        width: 100%;
         display: flex;
         justify-content: center;
+        max-width: 80%;
+    }
+}
+
+@media (max-width: 475px) {
+    .buttons {
+        top: 55vh;
+        flex-direction: column;
     }
 }
