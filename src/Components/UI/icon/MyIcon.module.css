@@ -1,0 +1,4 @@
+.myIcon {
+    width: calc(var(--index) * 2.2);
+    height: calc(var(--index) * 2.2);
+}

@@ -14,7 +14,13 @@ const HomeSection = () => {
             <img src={homepageDecorRight} className={cl.backgroundImgRight} alt="alt"/>
             <div className={cl.buttons}>
                 <MyButton
-                    text="add events to my calendar"
+                    text="Login"
+                    icon={<MyIcon type='user' color='black'/>}
+                    backgroundColor='white'
+                    color='black'
+                />
+                <MyButton
+                    text="Add events to my calendar"
                     icon={<MyIcon type='plus'/>}
                     backgroundColor='black'
                     color='white'

@@ -9,7 +9,7 @@
 .logo {
     width: calc(var(--index) * 30);
     position: absolute;
-    left: 20vw;
+    left: 10vw;
     top: 30vh;
 }
 
@@ -22,9 +22,18 @@
 
 .buttons {
     position: absolute;
-    left: 35vw;
+    left: 15vw;
     top: 60vh;
     display: flex;
     gap: 20px;
 }
 
+@media (max-width: 630px) {
+    .buttons {
+        /*position: static;*/
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+}

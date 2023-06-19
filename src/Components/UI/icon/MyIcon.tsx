@@ -1,5 +1,5 @@
 import React from 'react';
-import cl from "../button/MyButton.module.css";
+import cl from "./MyIcon.module.css";
 import calendarBlackIcon from '../../../assets/icons/calendar-black.svg';
 import calendarWhiteIcon from '../../../assets/icons/calendar-white.svg';
 import cloudDownloadBlackIcon from '../../../assets/icons/cloud-download-black.svg';
@@ -7,6 +7,7 @@ import cloudDownloadWhiteIcon from '../../../assets/icons/cloud-download-white.s
 import minusBlackIcon from '../../../assets/icons/minus-black.svg';
 import plusWhiteIcon from '../../../assets/icons/plus-white.svg';
 import userWhiteIcon from '../../../assets/icons/user-white.svg';
+import userBlackIcon from '../../../assets/icons/user-black.svg';
 
 export interface IconProps {
     type: "plus" | "minus" | "calendar" | "download" | "user",
@@ -23,7 +24,8 @@ const MyIcon = ({type, color}: IconProps) => {
             src = minusBlackIcon;
             break;
         case "user":
-            src = userWhiteIcon;
+            if (color === 'white') src = userWhiteIcon;
+            else if (color === 'black') src = userBlackIcon;
             break;
         case 'calendar':
             if (color === 'white') src = calendarWhiteIcon;
@@ -38,7 +40,7 @@ const MyIcon = ({type, color}: IconProps) => {
     }
 
     return (
-        <img src={src} alt="alt"/>
+        <img className={cl.myIcon} src={src} alt="alt"/>
     );
 };
 
