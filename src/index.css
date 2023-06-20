@@ -5,12 +5,11 @@
     --color-yellow: #FDD57F;
     --color-white: #FFFFFF;
 
-    --container-width: 1440px;
-    --grid-column-width: 98px;
-    --grid-gap: 30px;
-
     --index: calc(1vw + 1vh);
 
+    --container-width: 1270px;
+    --grid-column-width: 132px;
+    --grid-gap: 30px;
 }
 
 * {

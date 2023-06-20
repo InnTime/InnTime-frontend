@@ -2,9 +2,9 @@ import React from 'react';
 import homepageDecorLeft from "../../assets/homepage-decor-left.svg";
 import logo from "../../assets/logo.svg";
 import homepageDecorRight from "../../assets/homepage-decor-right.svg";
-import MyButton from "../UI/button/MyButton";
+import MyButton from "../UI/MyButton/MyButton";
 import cl from './HomeSection.module.css';
-import MyIcon from "../UI/icon/MyIcon";
+import MyIcon from "../UI/MyIcon/MyIcon";
 
 const HomeSection = () => {
     return (

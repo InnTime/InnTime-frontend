@@ -1,6 +1,6 @@
 import React, {ReactNode} from 'react';
 import cl from './MyButton.module.css';
-import MyIcon, {IconProps} from "../icon/MyIcon";
+import MyIcon, {IconProps} from "../MyIcon/MyIcon";
 
 interface Props {
     text: string,
