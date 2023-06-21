@@ -1,59 +1,38 @@
 import React, {useState} from 'react';
 import './MyDropdownMenu.css';
+import MyDropdownItem from "./MyDropdownItem/MyDropdownItem";
+import MyIcon from "../MyIcon/MyIcon";
 
 
-const MyDropdownMenu = () => {
+interface Props {
+    contentArray: Array<string>
+}
+
+
+const MyDropdownMenu = ({contentArray}: Props) => {
     const [isActive, setIsActive] = useState(false);
     const [selected, setIsSelected] = useState("Choose one");
+
 
     return (
         <div className="App">
             <div className="dropdown">
                 <div
-                    onClick={(e) => {
-                        setIsActive(!isActive);
-                    }}
                     className="dropdown-btn"
+                    onClick={(e) => setIsActive(!isActive)}
                 >
                     {selected}
-                    <span
-                        className={isActive ? "fas fa-caret-up" : "fas fa-caret-down"}
-                    />
+                    {isActive ? <MyIcon type="caret-up" size='small'/> : <MyIcon type="caret-down" size='small'/>}
                 </div>
+
                 <div
                     className="dropdown-content"
-                    style={{ display: isActive ? "block" : "none" }}
+                    style={{display: isActive ? "block" : "none"}}
                 >
-                    <div
-                        onClick={(e) => {
-                            // @ts-ignore
-                            setIsSelected(e.target.textContent);
-                            setIsActive(!isActive);
-                        }}
-                        className="item"
-                    >
-                        One
-                    </div>
-                    <div
-                        className="item"
-                        onClick={(e) => {
-                            // @ts-ignore
-                            setIsSelected(e.target.textContent);
-                            setIsActive(!isActive);
-                        }}
-                    >
-                        Two
-                    </div>
-                    <div
-                        className="item"
-                        onClick={(e) => {
-                            // @ts-ignore
-                            setIsSelected(e.target.textContent);
-                            setIsActive(!isActive);
-                        }}
-                    >
-                        Three
-                    </div>
+                    {contentArray.map(i => {
+                        return <MyDropdownItem text={i} isActive={isActive} setIsSelected={setIsSelected}
+                                               setIsActive={setIsActive} key={i}/>
+                    })}
                 </div>
             </div>
         </div>

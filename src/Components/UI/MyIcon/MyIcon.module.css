@@ -2,3 +2,7 @@
     width: calc(var(--index) * 2.2);
     height: calc(var(--index) * 2.2);
 }
+.myIconSmall {
+    width: calc(var(--index) * 0.7);
+    height: calc(var(--index) * 0.7);
+}

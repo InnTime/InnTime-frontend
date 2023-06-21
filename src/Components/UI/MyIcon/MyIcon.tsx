@@ -8,13 +8,17 @@ import minusBlackIcon from '../../../assets/icons/minus-black.svg';
 import plusWhiteIcon from '../../../assets/icons/plus-white.svg';
 import userWhiteIcon from '../../../assets/icons/user-white.svg';
 import userBlackIcon from '../../../assets/icons/user-black.svg';
+import caretUpIcon from '../../../assets/icons/caret-up.svg';
+import caretDownIcon from '../../../assets/icons/caret-down.svg';
+
 
 export interface IconProps {
-    type: "plus" | "minus" | "calendar" | "download" | "user",
+    type: "plus" | "minus" | "calendar" | "download" | "user" | "caret-up" | "caret-down",
     color?: 'white' | 'black'
+    size?: 'small' | 'medium'
 }
 
-const MyIcon = ({type, color}: IconProps) => {
+const MyIcon = ({type, color, size}: IconProps) => {
     let src;
     switch (type) {
         case 'plus':
@@ -22,6 +26,12 @@ const MyIcon = ({type, color}: IconProps) => {
             break;
         case 'minus':
             src = minusBlackIcon;
+            break;
+        case "caret-up":
+            src = caretUpIcon;
+            break;
+        case "caret-down":
+            src = caretDownIcon;
             break;
         case "user":
             if (color === 'white') src = userWhiteIcon;
@@ -39,8 +49,16 @@ const MyIcon = ({type, color}: IconProps) => {
             break;
     }
 
+    let iconStyle: string[];
+
+    if (!!size && size === 'small') {
+        iconStyle = [cl.myIconSmall];
+    } else {
+        iconStyle = [cl.myIcon]
+    }
+
     return (
-        <img className={cl.myIcon} src={src} alt="alt"/>
+        <img className={iconStyle.join(' ')} src={src} alt="alt"/>
     );
 };
 

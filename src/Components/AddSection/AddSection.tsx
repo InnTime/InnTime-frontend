@@ -16,8 +16,12 @@ const AddSection = () => {
                         Create your schedule
                     </p>
                 </section>
-                <section className={cl.addSection__sorting + " grid"}>
-                    <MyDropdownMenu/>
+                <section className={cl.addSection__sorting}>
+                    <MyDropdownMenu contentArray={['Core Courses', 'Electives']}/>
+                    <MyDropdownMenu
+                        contentArray={
+                        ['Course', 'BS - 1 year', 'BS - 2 year', 'BS - 3 year', 'BS - 4 year', 'MS - 1 year']}
+                    />
                 </section>
                 <section className={cl.addSection__scheduleCards}>
                     <MyButton backgroundColor="yellow" color="black" text="B19-AI-01"
