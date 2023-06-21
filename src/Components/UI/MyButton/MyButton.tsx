@@ -1,16 +1,17 @@
 import React, {ReactNode} from 'react';
 import cl from './MyButton.module.css';
-import MyIcon, {IconProps} from "../MyIcon/MyIcon";
 
 interface Props {
     text: string,
     backgroundColor: "black" | "white" | "yellow",
     color: "black" | "white",
     fontSize?: "small" | "medium" | "huge",
-    icon?: ReactNode
+    icon?: ReactNode,
+    icon2?: ReactNode,
+    onClick?: () => void;
 }
 
-const MyButton = ({text, fontSize, backgroundColor, color, icon}: Props) => {
+const MyButton = ({text, fontSize, backgroundColor, color, icon, icon2, onClick}: Props) => {
 
     const buttonStyles = [cl.myButton];
     const buttonTextStyles = [cl.myButton__text];
@@ -37,10 +38,13 @@ const MyButton = ({text, fontSize, backgroundColor, color, icon}: Props) => {
     }
 
     return (
-        <div>
+        <div onClick={onClick}>
             <button className={buttonStyles.join(' ')}>
                 <p className={buttonTextStyles.join(' ')}>{text}</p>
-                {!!icon && <span>{icon}</span>}
+                <div className={cl.icons}>
+                    {!!icon && <span>{icon}</span>}
+                    {!!icon2 && <span>{icon2}</span>}
+                </div>
             </button>
         </div>
     );

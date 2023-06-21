@@ -6,6 +6,7 @@ import cloudDownloadBlackIcon from '../../../assets/icons/cloud-download-black.s
 import cloudDownloadWhiteIcon from '../../../assets/icons/cloud-download-white.svg';
 import minusBlackIcon from '../../../assets/icons/minus-black.svg';
 import plusWhiteIcon from '../../../assets/icons/plus-white.svg';
+import plusBlackIcon from '../../../assets/icons/plus-black.svg';
 import userWhiteIcon from '../../../assets/icons/user-white.svg';
 import userBlackIcon from '../../../assets/icons/user-black.svg';
 import caretUpIcon from '../../../assets/icons/caret-up.svg';
@@ -13,18 +14,29 @@ import caretDownIcon from '../../../assets/icons/caret-down.svg';
 
 
 export interface IconProps {
-    type: "plus" | "minus" | "calendar" | "download" | "user" | "caret-up" | "caret-down",
-    color?: 'white' | 'black'
-    size?: 'small' | 'medium'
+    type: "add" | "remove" | "calendar" | "download" | "user" | "caret-up" | "caret-down",
+    color?: 'white' | 'black',
+    size?: 'small' | 'medium',
+    onClick?: () => void;
 }
 
-const MyIcon = ({type, color, size}: IconProps) => {
+const MyIcon = ({type, color, size, onClick}: IconProps) => {
+
+    const handleClick = (e: React.MouseEvent<HTMLHeadingElement>) => {
+        e.stopPropagation();
+        if (onClick) {
+            onClick()
+        }
+    }
+
     let src;
     switch (type) {
-        case 'plus':
+        case 'add':
             src = plusWhiteIcon
+            if (color === 'white') src = plusWhiteIcon;
+            else if (color === 'black') src = plusBlackIcon;
             break;
-        case 'minus':
+        case 'remove':
             src = minusBlackIcon;
             break;
         case "caret-up":
@@ -58,7 +70,7 @@ const MyIcon = ({type, color, size}: IconProps) => {
     }
 
     return (
-        <img className={iconStyle.join(' ')} src={src} alt="alt"/>
+        <img onClick={handleClick} className={iconStyle.join(' ')} src={src} alt="alt"/>
     );
 };
 

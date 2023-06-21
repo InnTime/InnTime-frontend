@@ -1,6 +1,6 @@
 .addSection {
     background: url("../../assets/background.png") no-repeat center/ cover;
-    height: 100vh;
+    margin-bottom: 30px;
 }
 
 .addSection__header {
@@ -33,6 +33,7 @@
 
 .addSection__scheduleCards {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    justify-content: center;
+    grid-template-columns: repeat(4, calc(var(--index) * 10));
     gap: var(--grid-gap);
 }

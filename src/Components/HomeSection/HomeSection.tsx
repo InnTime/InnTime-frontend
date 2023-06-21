@@ -21,7 +21,7 @@ const HomeSection = () => {
                 />
                 <MyButton
                     text="Add events to my calendar"
-                    icon={<MyIcon type='plus'/>}
+                    icon={<MyIcon type='add'/>}
                     backgroundColor='black'
                     color='white'
                 />
