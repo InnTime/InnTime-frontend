@@ -24,7 +24,7 @@
     margin-bottom: 30px;
 }
 
-.addSection__sorting {
+.addSection__filtering {
     margin-bottom: 65px;
     display: grid;
     grid-template-columns: 1fr 1fr 2fr;

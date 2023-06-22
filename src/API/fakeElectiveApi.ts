@@ -78,5 +78,6 @@ class ElectiveInfoApi {
         ]
         return Promise.resolve(courses);
     }
-
 }
+
+export const fakeElectiveApi = new ElectiveInfoApi();

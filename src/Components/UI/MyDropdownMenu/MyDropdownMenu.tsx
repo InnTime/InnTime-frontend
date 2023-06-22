@@ -1,27 +1,31 @@
-import React, {useState} from 'react';
+import React, {Dispatch, useState} from 'react';
 import './MyDropdownMenu.css';
-import MyDropdownItem from "./MyDropdownItem/MyDropdownItem";
 import MyIcon from "../MyIcon/MyIcon";
 
+export interface MyDropdownOptionProps {
+    value: string;
+    name: string;
+    onClick?: () => void;
+}
 
-interface Props {
-    contentArray: Array<string>
+interface DropDownProps {
+    options: Array<MyDropdownOptionProps>,
+    value: MyDropdownOptionProps,
+    setValue: Dispatch<MyDropdownOptionProps>;
 }
 
 
-const MyDropdownMenu = ({contentArray}: Props) => {
+const MyDropdownMenu = ({options, value, setValue}: DropDownProps) => {
     const [isActive, setIsActive] = useState(false);
-    const [selected, setIsSelected] = useState("Choose one");
-
 
     return (
         <div className="App">
             <div className="dropdown">
                 <div
                     className="dropdown-btn"
-                    onClick={(e) => setIsActive(!isActive)}
+                    onClick={() => setIsActive(!isActive)}
                 >
-                    {selected}
+                    {value.name}
                     {isActive ? <MyIcon type="caret-up" size='small'/> : <MyIcon type="caret-down" size='small'/>}
                 </div>
 
@@ -29,9 +33,17 @@ const MyDropdownMenu = ({contentArray}: Props) => {
                     className="dropdown-content"
                     style={{display: isActive ? "block" : "none"}}
                 >
-                    {contentArray.map(i => {
-                        return <MyDropdownItem text={i} isActive={isActive} setIsSelected={setIsSelected}
-                                               setIsActive={setIsActive} key={i}/>
+                    {options.map(i => {
+                        return <div
+                            key={i.value}
+                            className="item"
+                            onClick={() => {
+                                setValue(i);
+                                setIsActive(!isActive)
+                            }}
+                        >
+                            {i.name}
+                        </div>
                     })}
                 </div>
             </div>
