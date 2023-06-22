@@ -85,6 +85,8 @@ const AddSection = () => {
     useEffect(() => {
         // @ts-ignore
         fetchCourses();
+        // @ts-ignore
+        fetchElectives();
     }, [])
 
 
@@ -121,21 +123,31 @@ const AddSection = () => {
                     <MyInput/>
                 </section>
                 <section className={cl.addSection__scheduleCards}>
-                    {/*{selectedScheduleCardsType.value === 'core'?*/}
-                    {isCoursesLoading ?
-                        <MyLoader/>
-                        : courses.map(i =>
+                    {selectedScheduleCardsType.value === 'core' ?
+                        isCoursesLoading ?
+                            <MyLoader/>
+                            : courses.map(i =>
+                                <MyButton
+                                    key={i.id}
+                                    backgroundColor="white"
+                                    color="black"
+                                    text={i.name}
+                                    icon={<MyIcon type="download" color="black"/>}
+                                    icon2={<MyIcon type="add" color="black"/>}
+                                    onClick={() => console.log('hello')}
+                                />
+                            )
+                        : electives.map(i =>
                             <MyButton
                                 key={i.id}
                                 backgroundColor="white"
                                 color="black"
-                                text={i.name}
+                                text={i.shortName}
                                 icon={<MyIcon type="download" color="black"/>}
                                 icon2={<MyIcon type="add" color="black"/>}
                                 onClick={() => console.log('hello')}
                             />
                         )}
-                    {/*: <h1>gell</h1>}*/}
                 </section>
             </div>
         </div>
