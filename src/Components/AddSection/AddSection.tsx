@@ -52,6 +52,10 @@ const AddSection = () => {
 
     const electiveType: MyDropdownOptionProps[] = [
         {
+            name: "All",
+            value: "all"
+        },
+        {
             name: "BS Tech",
             value: "bs-tech"
         },
@@ -134,7 +138,7 @@ const AddSection = () => {
                                     text={i.name}
                                     icon={<MyIcon type="download" color="black"/>}
                                     icon2={<MyIcon type="add" color="black"/>}
-                                    onClick={() => console.log('hello')}
+                                    onClick={() => console.log('hello') }
                                 />
                             )
                         : electives.map(i =>
