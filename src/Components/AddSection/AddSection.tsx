@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {Dispatch, useEffect, useState} from 'react';
 import cl from './AddSection.module.css';
 import MyDropdownMenu, {MyDropdownOptionProps} from "../UI/MyDropdownMenu/MyDropdownMenu";
 import MyButton from "../UI/MyButton/MyButton";
@@ -8,8 +8,15 @@ import {CoreCourseInfo, fakeCoreCourseApi} from "../../API/fakeCoreCourseApi";
 import {useFetching} from "../../hooks/useFetching";
 import MyLoader from "../UI/MyLoader/MyLoader";
 import {ElectiveInfo, fakeElectiveApi} from "../../API/fakeElectiveApi";
+import {EventProps} from "../App/App";
 
-const AddSection = () => {
+
+interface AddProps {
+    events: EventProps[]
+    setEvents: Dispatch<EventProps[]>
+}
+
+const AddSection = ({events, setEvents}: AddProps) => {
 
     const scheduleCardsTypes: MyDropdownOptionProps[] = [
         {
@@ -94,6 +101,7 @@ const AddSection = () => {
     }, [])
 
 
+    // @ts-ignore
     return (
         <div className={cl.addSection}>
             <div className="container">
@@ -137,8 +145,8 @@ const AddSection = () => {
                                     color="black"
                                     text={i.name}
                                     icon={<MyIcon type="download" color="black"/>}
-                                    icon2={<MyIcon type="add" color="black"/>}
-                                    onClick={() => console.log('hello') }
+                                    icon2={<MyIcon type="add" color="black"
+                                                   onClick={() => i.events ? setEvents(events.concat(i.events)) : ""}/>}
                                 />
                             )
                         : electives.map(i =>
@@ -148,8 +156,7 @@ const AddSection = () => {
                                 color="black"
                                 text={i.shortName}
                                 icon={<MyIcon type="download" color="black"/>}
-                                icon2={<MyIcon type="add" color="black"/>}
-                                onClick={() => console.log('hello')}
+                                icon2={<MyIcon type="add" color="black" onClick={() => i.events ? setEvents(events.concat(i.events)) : ""}/>}
                             />
                         )}
                 </section>
