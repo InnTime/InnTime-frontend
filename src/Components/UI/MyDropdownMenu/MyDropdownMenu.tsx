@@ -1,4 +1,4 @@
-import React, {Dispatch, useState} from 'react';
+import React, {useState} from 'react';
 import './MyDropdownMenu.css';
 import MyIcon from "../MyIcon/MyIcon";
 
@@ -10,46 +10,45 @@ export interface MyDropdownOptionProps {
 
 interface DropDownProps {
     options: Array<MyDropdownOptionProps>,
-    value: MyDropdownOptionProps | undefined,
-    setValue: Dispatch<MyDropdownOptionProps>;
+    handleOnChange: React.ChangeEvent<HTMLInputElement>
 }
 
 
-const MyDropdownMenu = ({options, value, setValue}: DropDownProps) => {
+const MyDropdownMenu = ({options, handleOnChange}: DropDownProps) => {
     const [isActive, setIsActive] = useState(false);
-    if (value === undefined) setValue(options[0]);
+    const [value, setValue] = useState<MyDropdownOptionProps>(options[0]);
 
     return (
-        <div className="App">
-            <div className="dropdown">
-                <div
-                    className="dropdown-btn"
-                    onClick={() => setIsActive(!isActive)}
-                >
-                    {value?.name}
-                    {isActive ? <MyIcon type="caret-up" size='small'/> : <MyIcon type="caret-down" size='small'/>}
-                </div>
+        // @ts-ignore
+        <div className="dropdown" >
+            <div
+                className="dropdown-btn"
+                onClick={() => setIsActive(!isActive)}
+            >
+                {value?.name}
+                {isActive ? <MyIcon type="caret-up" size='small'/> : <MyIcon type="caret-down" size='small'/>}
+            </div>
 
-                <div
-                    className="dropdown-content"
-                    style={{display: isActive ? "block" : "none"}}
-                >
-                    {options.map(i => {
-                        return <div
-                            key={i.value}
-                            className="item"
-                            onClick={() => {
-                                setValue(i);
-                                setIsActive(!isActive)
-                            }}
-                        >
-                            {i.name}
-                        </div>
-                    })}
-                </div>
+            <div
+                className="dropdown-content"
+                style={{display: isActive ? "block" : "none"}}
+            >
+                {options.map(i => {
+                    return <div
+                        key={i.value}
+                        className="item"
+                        onClick={() => {
+                            setValue(i);
+                            setIsActive(!isActive)
+                            // @ts-ignore
+                            handleOnChange(i)
+                        }}
+                    >
+                        {i.name}
+                    </div>
+                })}
             </div>
         </div>
-
     );
 };
 

@@ -3,7 +3,10 @@
 Timetable website for Innopolis University
 
 ## Current state
-![img_1.png](assets/add-feature.gif)
+Wait for gifs
+![add-feature](assets/add-feature.gif)
+![sort-feature](assets/sort-feature.gif)
+
 ## Links
 ### [layout in figma](https://www.figma.com/file/AzFwk8iwlLVP2j3rxVydNh/InnTime?type=design&node-id=0%3A1&t=n4lCEVnVnHJ4s9W3-1)
 

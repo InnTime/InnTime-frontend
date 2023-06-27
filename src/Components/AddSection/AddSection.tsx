@@ -1,4 +1,4 @@
-import React, {Dispatch, useEffect, useState} from 'react';
+import React, {Dispatch, useEffect, useMemo, useState} from 'react';
 import cl from './AddSection.module.css';
 import {CoreCourseInfo, fakeCoreCourseApi} from "../../API/fakeCoreCourseApi";
 import {useFetching} from "../../hooks/useFetching";
@@ -14,21 +14,31 @@ interface AddProps {
     setEvents: Dispatch<EventProps[]>
 }
 
+export interface FilterProps {
+    scheduleCardsType: MyDropdownOptionProps,
+    courseYear: MyDropdownOptionProps,
+    electiveType: MyDropdownOptionProps,
+    searchQuery: string
+}
+
 const AddSection = ({events, setEvents}: AddProps) => {
     const [courses, setCourses] = useState<CoreCourseInfo[]>([]);
     const [electives, setElectives] = useState<ElectiveInfo[]>([]);
 
-    const [filter, setFilter] = useState({
-        scheduleCardsType: undefined,
-        selectedCourseYear: undefined,
-        selectedElectiveType: undefined,
+    const [filter, setFilter] = useState<FilterProps>({
+        scheduleCardsType: {value: '', name: ''},
+        courseYear: {value: 'all', name: ''},
+        electiveType: {value: '', name: ''},
         searchQuery: ''
     })
 
-    const [selectedScheduleCardsType, setSelectedScheduleCardsType] = useState<MyDropdownOptionProps>();
-    const [selectedCourseYear, setSelectedCourseYear] = useState<MyDropdownOptionProps>();
-    const [selectedElectiveType, setSelectedElectiveType] = useState<MyDropdownOptionProps>();
-
+    const sortedCourses = useMemo(() => {
+            if (filter.courseYear && filter.courseYear.value !== 'all')
+                return courses.filter(i => i.year === filter.courseYear.value);
+            return courses;
+        },
+        [courses, filter.courseYear]
+    )
 
     const [fetchCourses, isCoursesLoading, courseError] = useFetching(async () => {
         const response = await fakeCoreCourseApi.getCourses();
@@ -47,9 +57,11 @@ const AddSection = ({events, setEvents}: AddProps) => {
         fetchElectives();
     }, [])
 
+    useEffect(() => {
 
-    // @ts-ignore
-    // @ts-ignore
+    }, [filter.scheduleCardsType])
+
+
     return (
         <div className={cl.addSection}>
             <div className="container">
@@ -61,22 +73,16 @@ const AddSection = ({events, setEvents}: AddProps) => {
                         Create your schedule
                     </p>
                 </section>
-                <ScheduleCardFilter
-                    selectedScheduleCardsType={selectedScheduleCardsType}
-                    setSelectedScheduleCardsType={setSelectedScheduleCardsType}
-                    selectedCourseYear={selectedCourseYear}
-                    setSelectedCourseYear={setSelectedCourseYear}
-                    selectedElectiveType={selectedElectiveType}
-                    setSelectedElectiveType={setSelectedElectiveType}/>
+                <ScheduleCardFilter filter={filter} setFilter={setFilter}/>
                 <section className={cl.addSection__scheduleCards}>
                     {
-                        selectedScheduleCardsType?.value === 'core' ?
+                        filter.scheduleCardsType?.value === 'elective' ?
                             //@ts-ignore
-                            <ScheduleCardList cards={courses} isLoading={isCoursesLoading} error={courseError}
+                            <ScheduleCardList cards={electives} isLoading={isElectivesLoading} error={electiveError}
                                               events={events} setEvents={setEvents}/>
                             :
                             //@ts-ignore
-                            <ScheduleCardList cards={electives} isLoading={isElectivesLoading} error={electiveError}
+                            <ScheduleCardList cards={sortedCourses} isLoading={isCoursesLoading} error={courseError}
                                               events={events} setEvents={setEvents}/>
                     }
                 </section>

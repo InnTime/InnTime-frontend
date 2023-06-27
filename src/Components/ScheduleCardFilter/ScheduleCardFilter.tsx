@@ -1,24 +1,16 @@
 import React, {Dispatch} from 'react';
+import {FilterProps} from '../AddSection/AddSection';
 import MyDropdownMenu, {MyDropdownOptionProps} from "../UI/MyDropdownMenu/MyDropdownMenu";
 import MyInput from "../UI/MyInput/MyInput";
 import cl from './ScheduleCardFilter.module.css'
 
 
 interface ScheduleCardFilterProps {
-    selectedScheduleCardsType: MyDropdownOptionProps | undefined;
-    setSelectedScheduleCardsType: Dispatch<MyDropdownOptionProps>;
-    selectedCourseYear: MyDropdownOptionProps | undefined;
-    setSelectedCourseYear: Dispatch<MyDropdownOptionProps>;
-    selectedElectiveType: MyDropdownOptionProps | undefined;
-    setSelectedElectiveType: Dispatch<MyDropdownOptionProps>;
+    filter: FilterProps,
+    setFilter: Dispatch<FilterProps>
 }
 
-const ScheduleCardFilter = (
-    {
-        selectedScheduleCardsType, setSelectedScheduleCardsType,
-        selectedCourseYear, setSelectedCourseYear,
-        selectedElectiveType, setSelectedElectiveType
-    }: ScheduleCardFilterProps) => {
+const ScheduleCardFilter = ({filter, setFilter}: ScheduleCardFilterProps) => {
 
     const scheduleCardsTypes: MyDropdownOptionProps[] = [
         {
@@ -82,20 +74,29 @@ const ScheduleCardFilter = (
         <div className={cl.addSection__filtering}>
             <MyDropdownMenu
                 options={scheduleCardsTypes}
-                value={selectedScheduleCardsType}
-                setValue={setSelectedScheduleCardsType}
+                // @ts-ignore
+                handleOnChange={selectedScheduleCardsType => setFilter({
+                    ...filter,
+                    scheduleCardsType: selectedScheduleCardsType
+                })}
             />
-            {selectedScheduleCardsType?.value === 'core' ?
+            {filter.scheduleCardsType?.value === 'elective' ?
                 <MyDropdownMenu
-                    options={coreCoursesByYears}
-                    value={selectedCourseYear}
-                    setValue={setSelectedCourseYear}
+                    options={electiveType}
+                    // @ts-ignore
+                    handleOnChange={selectedElectiveType => setFilter({
+                        ...filter,
+                        electiveType: selectedElectiveType
+                    })}
                 />
                 :
                 <MyDropdownMenu
-                    options={electiveType}
-                    value={selectedElectiveType}
-                    setValue={setSelectedElectiveType}
+                    options={coreCoursesByYears}
+                    // @ts-ignore
+                    handleOnChange={selectedCourseYear => setFilter({
+                        ...filter,
+                        courseYear: selectedCourseYear
+                    })}
                 />
             }
             <MyInput/>
