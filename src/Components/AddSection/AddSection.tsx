@@ -1,14 +1,12 @@
 import React, {Dispatch, useEffect, useState} from 'react';
 import cl from './AddSection.module.css';
-import MyDropdownMenu, {MyDropdownOptionProps} from "../UI/MyDropdownMenu/MyDropdownMenu";
-import MyButton from "../UI/MyButton/MyButton";
-import MyIcon from "../UI/MyIcon/MyIcon";
-import MyInput from "../UI/MyInput/MyInput";
 import {CoreCourseInfo, fakeCoreCourseApi} from "../../API/fakeCoreCourseApi";
 import {useFetching} from "../../hooks/useFetching";
-import MyLoader from "../UI/MyLoader/MyLoader";
 import {ElectiveInfo, fakeElectiveApi} from "../../API/fakeElectiveApi";
-import {EventProps} from "../App/App";
+import {EventProps} from "../../App";
+import ScheduleCardList from '../ScheduleCardList/ScheduleCardList';
+import ScheduleCardFilter from '../ScheduleCardFilter/ScheduleCardFilter';
+import {MyDropdownOptionProps} from "../UI/MyDropdownMenu/MyDropdownMenu";
 
 
 interface AddProps {
@@ -17,71 +15,20 @@ interface AddProps {
 }
 
 const AddSection = ({events, setEvents}: AddProps) => {
-
-    const scheduleCardsTypes: MyDropdownOptionProps[] = [
-        {
-            name: "Core Courses",
-            value: "core"
-        },
-        {
-            name: "Electives",
-            value: "elective"
-        },
-    ];
-
-    const coreCoursesByYears: MyDropdownOptionProps[] = [
-        {
-            name: "All",
-            value: "all"
-        },
-        {
-            name: "BS - 1 year",
-            value: "bs-1"
-        },
-        {
-            name: "BS - 2 year",
-            value: "bs-2"
-        },
-        {
-            name: "BS - 3 year",
-            value: "bs-3"
-        },
-        {
-            name: "BS - 4 year",
-            value: "bs-4"
-        },
-        {
-            name: "MS - 1 year",
-            value: "ms-1"
-        }
-    ]
-
-
-    const electiveType: MyDropdownOptionProps[] = [
-        {
-            name: "All",
-            value: "all"
-        },
-        {
-            name: "BS Tech",
-            value: "bs-tech"
-        },
-        {
-            name: "MS Tech",
-            value: "ms-tech"
-        },
-        {
-            name: "BS/MS hum",
-            value: "hum"
-        }
-    ]
-
-    const [selectedScheduleCardsType, setSelectedScheduleCardsType] = useState(scheduleCardsTypes[0]);
-    const [selectedCourseYear, setSelectedCourseYear] = useState(coreCoursesByYears[0]);
-    const [selectedElectiveType, setSelectedElectiveType] = useState(electiveType[0]);
-
     const [courses, setCourses] = useState<CoreCourseInfo[]>([]);
     const [electives, setElectives] = useState<ElectiveInfo[]>([]);
+
+    const [filter, setFilter] = useState({
+        scheduleCardsType: undefined,
+        selectedCourseYear: undefined,
+        selectedElectiveType: undefined,
+        searchQuery: ''
+    })
+
+    const [selectedScheduleCardsType, setSelectedScheduleCardsType] = useState<MyDropdownOptionProps>();
+    const [selectedCourseYear, setSelectedCourseYear] = useState<MyDropdownOptionProps>();
+    const [selectedElectiveType, setSelectedElectiveType] = useState<MyDropdownOptionProps>();
+
 
     const [fetchCourses, isCoursesLoading, courseError] = useFetching(async () => {
         const response = await fakeCoreCourseApi.getCourses();
@@ -89,7 +36,7 @@ const AddSection = ({events, setEvents}: AddProps) => {
     })
 
     const [fetchElectives, isElectivesLoading, electiveError] = useFetching(async () => {
-        const response = await fakeElectiveApi.getCourses();
+        const response = await fakeElectiveApi.getElectives();
         setElectives(response);
     })
 
@@ -102,6 +49,7 @@ const AddSection = ({events, setEvents}: AddProps) => {
 
 
     // @ts-ignore
+    // @ts-ignore
     return (
         <div className={cl.addSection}>
             <div className="container">
@@ -113,52 +61,24 @@ const AddSection = ({events, setEvents}: AddProps) => {
                         Create your schedule
                     </p>
                 </section>
-                <section className={cl.addSection__filtering}>
-                    <MyDropdownMenu
-                        options={scheduleCardsTypes}
-                        value={selectedScheduleCardsType}
-                        setValue={setSelectedScheduleCardsType}
-                    />
-                    {selectedScheduleCardsType.value === 'core' ?
-                        <MyDropdownMenu
-                            options={coreCoursesByYears}
-                            value={selectedCourseYear}
-                            setValue={setSelectedCourseYear}
-                        />
-                        :
-                        <MyDropdownMenu
-                            options={electiveType}
-                            value={selectedElectiveType}
-                            setValue={setSelectedElectiveType}
-                        />
-                    }
-                    <MyInput/>
-                </section>
+                <ScheduleCardFilter
+                    selectedScheduleCardsType={selectedScheduleCardsType}
+                    setSelectedScheduleCardsType={setSelectedScheduleCardsType}
+                    selectedCourseYear={selectedCourseYear}
+                    setSelectedCourseYear={setSelectedCourseYear}
+                    selectedElectiveType={selectedElectiveType}
+                    setSelectedElectiveType={setSelectedElectiveType}/>
                 <section className={cl.addSection__scheduleCards}>
-                    {selectedScheduleCardsType.value === 'core' ?
-                        isCoursesLoading ?
-                            <MyLoader/>
-                            : courses.map(i =>
-                                <MyButton
-                                    key={i.id}
-                                    backgroundColor="white"
-                                    color="black"
-                                    text={i.name}
-                                    icon={<MyIcon type="download" color="black"/>}
-                                    icon2={<MyIcon type="add" color="black"
-                                                   onClick={() => i.events ? setEvents(events.concat(i.events)) : ""}/>}
-                                />
-                            )
-                        : electives.map(i =>
-                            <MyButton
-                                key={i.id}
-                                backgroundColor="white"
-                                color="black"
-                                text={i.shortName}
-                                icon={<MyIcon type="download" color="black"/>}
-                                icon2={<MyIcon type="add" color="black" onClick={() => i.events ? setEvents(events.concat(i.events)) : ""}/>}
-                            />
-                        )}
+                    {
+                        selectedScheduleCardsType?.value === 'core' ?
+                            //@ts-ignore
+                            <ScheduleCardList cards={courses} isLoading={isCoursesLoading} error={courseError}
+                                              events={events} setEvents={setEvents}/>
+                            :
+                            //@ts-ignore
+                            <ScheduleCardList cards={electives} isLoading={isElectivesLoading} error={electiveError}
+                                              events={events} setEvents={setEvents}/>
+                    }
                 </section>
             </div>
         </div>

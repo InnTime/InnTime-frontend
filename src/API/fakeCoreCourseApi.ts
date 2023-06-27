@@ -1,4 +1,4 @@
-import {EventProps} from "../Components/App/App";
+import {EventProps} from "../App";
 
 export interface CoreCourseInfo {
     id: number;

@@ -1,4 +1,4 @@
-import {EventProps} from "../Components/App/App";
+import {EventProps} from "../App";
 
 export interface ElectiveInfo {
     id: number;
@@ -9,7 +9,7 @@ export interface ElectiveInfo {
 }
 
 class ElectiveInfoApi {
-    getCourses(): Promise<ElectiveInfo[]> {
+    getElectives(): Promise<ElectiveInfo[]> {
         const courses: ElectiveInfo[] = [
             {
                 id: 1,

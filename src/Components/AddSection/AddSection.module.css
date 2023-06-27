@@ -24,17 +24,3 @@
     line-height: 24px;
     margin-bottom: 30px;
 }
-
-.addSection__filtering {
-    margin-bottom: 65px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 2fr;
-    gap: var(--grid-gap);
-}
-
-.addSection__scheduleCards {
-    display: grid;
-    justify-content: center;
-    grid-template-columns: repeat(4, calc(var(--index) * 10));
-    gap: var(--grid-gap);
-}

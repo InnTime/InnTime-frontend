@@ -10,13 +10,14 @@ export interface MyDropdownOptionProps {
 
 interface DropDownProps {
     options: Array<MyDropdownOptionProps>,
-    value: MyDropdownOptionProps,
+    value: MyDropdownOptionProps | undefined,
     setValue: Dispatch<MyDropdownOptionProps>;
 }
 
 
 const MyDropdownMenu = ({options, value, setValue}: DropDownProps) => {
     const [isActive, setIsActive] = useState(false);
+    if (value === undefined) setValue(options[0]);
 
     return (
         <div className="App">
@@ -25,7 +26,7 @@ const MyDropdownMenu = ({options, value, setValue}: DropDownProps) => {
                     className="dropdown-btn"
                     onClick={() => setIsActive(!isActive)}
                 >
-                    {value.name}
+                    {value?.name}
                     {isActive ? <MyIcon type="caret-up" size='small'/> : <MyIcon type="caret-down" size='small'/>}
                 </div>
 

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import HomeSection from "../HomeSection/HomeSection";
-import AddSection from "../AddSection/AddSection";
-import CalendarSection from "../CalendarSection/CalendarSection";
+import HomeSection from "./Components/HomeSection/HomeSection";
+import AddSection from "./Components/AddSection/AddSection";
+import CalendarSection from "./Components/CalendarSection/CalendarSection";
 
 
 export interface EventProps {
