@@ -10,17 +10,16 @@ export interface MyDropdownOptionProps {
 
 interface DropDownProps {
     options: Array<MyDropdownOptionProps>,
-    handleOnChange: React.ChangeEvent<HTMLInputElement>
+    handleOnClick: (value: MyDropdownOptionProps) => void,
 }
 
 
-const MyDropdownMenu = ({options, handleOnChange}: DropDownProps) => {
+const MyDropdownMenu = ({options, handleOnClick}: DropDownProps) => {
     const [isActive, setIsActive] = useState(false);
     const [value, setValue] = useState<MyDropdownOptionProps>(options[0]);
 
     return (
-        // @ts-ignore
-        <div className="dropdown" >
+        <div className="dropdown">
             <div
                 className="dropdown-btn"
                 onClick={() => setIsActive(!isActive)}
@@ -40,8 +39,7 @@ const MyDropdownMenu = ({options, handleOnChange}: DropDownProps) => {
                         onClick={() => {
                             setValue(i);
                             setIsActive(!isActive)
-                            // @ts-ignore
-                            handleOnChange(i)
+                            handleOnClick(i)
                         }}
                     >
                         {i.name}

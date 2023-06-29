@@ -10,7 +10,7 @@ import cl from './ScheduleCardList.module.css';
 interface ScheduleCardListProps {
     cards:ElectiveInfo[] | CoreCourseInfo[];
     isLoading: boolean | undefined;
-    error: '';
+    error: string;
     events: EventProps[];
     setEvents: Dispatch<EventProps[]>
 }

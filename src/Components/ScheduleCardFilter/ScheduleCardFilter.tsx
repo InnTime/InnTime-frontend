@@ -1,4 +1,4 @@
-import React, {Dispatch} from 'react';
+import React, {Dispatch, useEffect, useState} from 'react';
 import {FilterProps} from '../AddSection/AddSection';
 import MyDropdownMenu, {MyDropdownOptionProps} from "../UI/MyDropdownMenu/MyDropdownMenu";
 import MyInput from "../UI/MyInput/MyInput";
@@ -70,36 +70,49 @@ const ScheduleCardFilter = ({filter, setFilter}: ScheduleCardFilterProps) => {
         }
     ]
 
+    const [secondFilterOptions, setSecondFilterOptions] = useState(coreCoursesByYears);
+
+    useEffect(() => {
+        if (filter.scheduleCardsType && filter.scheduleCardsType.value === 'elective') {
+            setSecondFilterOptions(electiveType)
+        } else setSecondFilterOptions(coreCoursesByYears)
+    }, [filter.scheduleCardsType])
+
     return (
         <div className={cl.addSection__filtering}>
             <MyDropdownMenu
                 options={scheduleCardsTypes}
                 // @ts-ignore
-                handleOnChange={selectedScheduleCardsType => setFilter({
+                handleOnClick={selectedScheduleCardsType => setFilter({
                     ...filter,
                     scheduleCardsType: selectedScheduleCardsType
                 })}
             />
-            {filter.scheduleCardsType?.value === 'elective' ?
-                <MyDropdownMenu
-                    options={electiveType}
-                    // @ts-ignore
-                    handleOnChange={selectedElectiveType => setFilter({
-                        ...filter,
-                        electiveType: selectedElectiveType
-                    })}
-                />
-                :
-                <MyDropdownMenu
-                    options={coreCoursesByYears}
-                    // @ts-ignore
-                    handleOnChange={selectedCourseYear => setFilter({
-                        ...filter,
-                        courseYear: selectedCourseYear
-                    })}
-                />
+            {
+                filter.scheduleCardsType?.value === 'elective' ?
+                    <MyDropdownMenu
+                        options={electiveType}
+                        // @ts-ignore
+                        handleOnClick={selected => setFilter({
+                            ...filter,
+                            electiveType: selected
+                        })}
+                    />
+                    :
+                    <MyDropdownMenu
+                        options={coreCoursesByYears}
+                        // @ts-ignore
+                        handleOnClick={selected => setFilter({
+                            ...filter,
+                            courseYear: selected
+                        })
+                        }
+                    />
             }
-            <MyInput/>
+            <MyInput value={filter.searchQuery} onChange={e => setFilter({
+                ...filter,
+                searchQuery: e.target.value
+            })}/>
 
         </div>
     );

@@ -7,6 +7,7 @@ import {EventProps} from "../../App";
 import ScheduleCardList from '../ScheduleCardList/ScheduleCardList';
 import ScheduleCardFilter from '../ScheduleCardFilter/ScheduleCardFilter';
 import {MyDropdownOptionProps} from "../UI/MyDropdownMenu/MyDropdownMenu";
+import {useScheduleCards} from "../../hooks/useScheduleCards";
 
 
 interface AddProps {
@@ -25,20 +26,15 @@ const AddSection = ({events, setEvents}: AddProps) => {
     const [courses, setCourses] = useState<CoreCourseInfo[]>([]);
     const [electives, setElectives] = useState<ElectiveInfo[]>([]);
 
-    const [filter, setFilter] = useState<FilterProps>({
-        scheduleCardsType: {value: '', name: ''},
+    const [filter, setFilter] = useState({
+        scheduleCardsType: {value: 'core', name: ''},
         courseYear: {value: 'all', name: ''},
-        electiveType: {value: '', name: ''},
+        electiveType: {value: 'all', name: ''},
         searchQuery: ''
     })
 
-    const sortedCourses = useMemo(() => {
-            if (filter.courseYear && filter.courseYear.value !== 'all')
-                return courses.filter(i => i.year === filter.courseYear.value);
-            return courses;
-        },
-        [courses, filter.courseYear]
-    )
+    const sortedCourses = useScheduleCards(courses, "year", filter.courseYear, filter.searchQuery)
+    const sortedElectives = useScheduleCards(electives, "type", filter.electiveType, filter.searchQuery)
 
     const [fetchCourses, isCoursesLoading, courseError] = useFetching(async () => {
         const response = await fakeCoreCourseApi.getCourses();
@@ -51,9 +47,7 @@ const AddSection = ({events, setEvents}: AddProps) => {
     })
 
     useEffect(() => {
-        // @ts-ignore
         fetchCourses();
-        // @ts-ignore
         fetchElectives();
     }, [])
 
@@ -77,13 +71,17 @@ const AddSection = ({events, setEvents}: AddProps) => {
                 <section className={cl.addSection__scheduleCards}>
                     {
                         filter.scheduleCardsType?.value === 'elective' ?
-                            //@ts-ignore
-                            <ScheduleCardList cards={electives} isLoading={isElectivesLoading} error={electiveError}
-                                              events={events} setEvents={setEvents}/>
+                            <ScheduleCardList cards={sortedElectives}
+                                              isLoading={isElectivesLoading}
+                                              error={electiveError}
+                                              events={events}
+                                              setEvents={setEvents}/>
                             :
-                            //@ts-ignore
-                            <ScheduleCardList cards={sortedCourses} isLoading={isCoursesLoading} error={courseError}
-                                              events={events} setEvents={setEvents}/>
+                            <ScheduleCardList cards={sortedCourses}
+                                              isLoading={isCoursesLoading}
+                                              error={courseError}
+                                              events={events}
+                                              setEvents={setEvents}/>
                     }
                 </section>
             </div>

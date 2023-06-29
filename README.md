@@ -4,7 +4,9 @@ Timetable website for Innopolis University
 
 ## Current state
 Wait for gifs
+### Add feature
 ![add-feature](assets/add-feature.gif)
+### Sort feature
 ![sort-feature](assets/sort-feature.gif)
 
 ## Links
