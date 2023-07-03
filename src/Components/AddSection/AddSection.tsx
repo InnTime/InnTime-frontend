@@ -6,7 +6,7 @@ import {ElectiveInfo, fakeElectiveApi} from "../../API/fakeElectiveApi";
 import {EventProps} from "../../App";
 import ScheduleCardList from '../ScheduleCardList/ScheduleCardList';
 import ScheduleCardFilter from '../ScheduleCardFilter/ScheduleCardFilter';
-import {MyDropdownOptionProps} from "../UI/MyDropdownMenu/MyDropdownMenu";
+import {MySelectOptionProps} from "../UI/MySelect/MySelect";
 import {useScheduleCards} from "../../hooks/useScheduleCards";
 
 
@@ -16,9 +16,9 @@ interface AddProps {
 }
 
 export interface FilterProps {
-    scheduleCardsType: MyDropdownOptionProps,
-    courseYear: MyDropdownOptionProps,
-    electiveType: MyDropdownOptionProps,
+    scheduleCardsType: MySelectOptionProps,
+    courseYear: MySelectOptionProps,
+    electiveType: MySelectOptionProps,
     searchQuery: string
 }
 

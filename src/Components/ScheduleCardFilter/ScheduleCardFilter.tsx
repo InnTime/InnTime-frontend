@@ -1,6 +1,6 @@
 import React, {Dispatch, useEffect, useState} from 'react';
 import {FilterProps} from '../AddSection/AddSection';
-import MyDropdownMenu, {MyDropdownOptionProps} from "../UI/MyDropdownMenu/MyDropdownMenu";
+import MySelect, {MySelectOptionProps} from "../UI/MySelect/MySelect";
 import MyInput from "../UI/MyInput/MyInput";
 import cl from './ScheduleCardFilter.module.css'
 
@@ -12,7 +12,7 @@ interface ScheduleCardFilterProps {
 
 const ScheduleCardFilter = ({filter, setFilter}: ScheduleCardFilterProps) => {
 
-    const scheduleCardsTypes: MyDropdownOptionProps[] = [
+    const scheduleCardsTypes: MySelectOptionProps[] = [
         {
             name: "Core Courses",
             value: "core"
@@ -23,7 +23,7 @@ const ScheduleCardFilter = ({filter, setFilter}: ScheduleCardFilterProps) => {
         },
     ];
 
-    const coreCoursesByYears: MyDropdownOptionProps[] = [
+    const coreCoursesByYears: MySelectOptionProps[] = [
         {
             name: "All",
             value: "all"
@@ -51,7 +51,7 @@ const ScheduleCardFilter = ({filter, setFilter}: ScheduleCardFilterProps) => {
     ]
 
 
-    const electiveType: MyDropdownOptionProps[] = [
+    const electiveType: MySelectOptionProps[] = [
         {
             name: "All",
             value: "all"
@@ -80,7 +80,7 @@ const ScheduleCardFilter = ({filter, setFilter}: ScheduleCardFilterProps) => {
 
     return (
         <div className={cl.addSection__filtering}>
-            <MyDropdownMenu
+            <MySelect
                 options={scheduleCardsTypes}
                 // @ts-ignore
                 handleOnClick={selectedScheduleCardsType => setFilter({
@@ -90,7 +90,7 @@ const ScheduleCardFilter = ({filter, setFilter}: ScheduleCardFilterProps) => {
             />
             {
                 filter.scheduleCardsType?.value === 'elective' ?
-                    <MyDropdownMenu
+                    <MySelect
                         options={electiveType}
                         // @ts-ignore
                         handleOnClick={selected => setFilter({
@@ -99,7 +99,7 @@ const ScheduleCardFilter = ({filter, setFilter}: ScheduleCardFilterProps) => {
                         })}
                     />
                     :
-                    <MyDropdownMenu
+                    <MySelect
                         options={coreCoursesByYears}
                         // @ts-ignore
                         handleOnClick={selected => setFilter({

@@ -54,7 +54,7 @@ class CoreCourseInfoApi {
                     {title: 'Software Project  (lec)', startTime: '9:00:00', endTime: '10:30:00', daysOfWeek: ['1']},
                     {title: 'Software Project  (tut)', startTime: '10:40:00', endTime: '12:10:00', daysOfWeek: ['1']},
                     {title: 'Software Project (lab)', startTime: '12:40:00', endTime: '14:10:00', daysOfWeek: ['1']},
-                    {title: 'Theoretical sports(lec) -Mental Health', startTime: '10:40:00', endTime: '12:10:00', daysOfWeek: ['2','3','4']}
+                    {title: 'Theoretical sports(lec)-Mental Health', startTime: '10:40:00', endTime: '12:10:00', daysOfWeek: ['2','3','4']}
                 ]
             },
             {

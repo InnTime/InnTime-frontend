@@ -1,6 +1,6 @@
 .addSection__filtering {
     margin-bottom: 65px;
     display: grid;
-    grid-template-columns: 1fr 1fr 2fr;
-    gap: var(--grid-gap);
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(240px, calc(var(--index) * 15)));
 }
