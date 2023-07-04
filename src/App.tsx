@@ -4,6 +4,7 @@ import AddSection from "./Components/AddSection/AddSection";
 import CalendarSection from "./Components/CalendarSection/CalendarSection";
 import LoginForm from "./Components/LoginForm/LoginForm";
 import {Context} from "./index";
+import {observer} from "mobx-react-lite";
 
 
 export interface EventProps {
@@ -22,13 +23,13 @@ const App = () => {
 
     return (
         <div>
-            <HomeSection/>
-            <AddSection events={events} setEvents={setEvents}/>
-            <CalendarSection events={events}/>
-            {/*<h1>{store.isAuth ? "Пользователь авторизован" : "Авторизуйтесь"}</h1>*/}
-            {/*<LoginForm/>*/}
+            {/*<HomeSection/>*/}
+            {/*<AddSection events={events} setEvents={setEvents}/>*/}
+            {/*<CalendarSection events={events}/>*/}
+            <h1>{store.isAuth ? "Пользователь авторизован" : "Авторизуйтесь"}</h1>
+            <LoginForm/>
         </div>
     );
 };
 
-export default App;
+export default observer(App);

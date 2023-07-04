@@ -24,21 +24,18 @@ export default class Store {
     async login(email: string, password: string) {
         try {
             const response = await AuthService.login(email, password);
+            console.log(response)
             localStorage.setItem('token', response.data.accessToken);
             this.setAuth(true);
             this.setUser(response.data.user);
         } catch (e) {
             // @ts-ignore
-            console.log(e.response?.data?.message)
+            console.log((e as Error).response?.data?.message)
         }
     }
     async registration(email: string, password: string, group_id: number) {
         try {
             const response = await AuthService.registration(email, password, group_id);
-            console.log(response.data)
-            localStorage.setItem('token', response.data.accessToken);
-            this.setAuth(true);
-            this.setUser(response.data.user);
         } catch (e) {
             // @ts-ignore
             console.log(e.response?.data?.message)
