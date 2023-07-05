@@ -1,13 +1,15 @@
-import React, {Dispatch, useEffect, useMemo, useState} from 'react';
+import React, {Dispatch, useEffect, useState} from 'react';
 import cl from './AddSection.module.css';
-import {CoreCourseInfo, fakeCoreCourseApi} from "../../API/fakeCoreCourseApi";
 import {useFetching} from "../../hooks/useFetching";
-import {ElectiveInfo, fakeElectiveApi} from "../../API/fakeElectiveApi";
-import {EventProps} from "../../App";
 import ScheduleCardList from '../ScheduleCardList/ScheduleCardList';
 import ScheduleCardFilter from '../ScheduleCardFilter/ScheduleCardFilter';
 import {MySelectOptionProps} from "../UI/MySelect/MySelect";
 import {useScheduleCards} from "../../hooks/useScheduleCards";
+import {EventProps} from "../../pages/homepage/HomePage";
+import GroupService from "../../services/GroupService";
+import {IGroup} from "../../models/IGroup";
+import ElectiveService from "../../services/ElectiveService";
+import {IElective} from "../../models/IElective";
 
 
 interface AddProps {
@@ -23,8 +25,8 @@ export interface FilterProps {
 }
 
 const AddSection = ({events, setEvents}: AddProps) => {
-    const [courses, setCourses] = useState<CoreCourseInfo[]>([]);
-    const [electives, setElectives] = useState<ElectiveInfo[]>([]);
+    const [courses, setCourses] = useState<IGroup[]>([]);
+    const [electives, setElectives] = useState<IElective[]>([]);
 
     const [filter, setFilter] = useState({
         scheduleCardsType: {value: 'core', name: ''},
@@ -37,13 +39,13 @@ const AddSection = ({events, setEvents}: AddProps) => {
     const sortedElectives = useScheduleCards(electives, "type", filter.electiveType, filter.searchQuery)
 
     const [fetchCourses, isCoursesLoading, courseError] = useFetching(async () => {
-        const response = await fakeCoreCourseApi.getCourses();
-        setCourses(response);
+        const response = await GroupService.fetchGroups();
+        setCourses(response.data);
     })
 
     const [fetchElectives, isElectivesLoading, electiveError] = useFetching(async () => {
-        const response = await fakeElectiveApi.getElectives();
-        setElectives(response);
+        const response = await ElectiveService.fetchElectives();
+        setElectives(response.data);
     })
 
     useEffect(() => {
@@ -52,7 +54,6 @@ const AddSection = ({events, setEvents}: AddProps) => {
     }, [])
 
     useEffect(() => {
-
     }, [filter.scheduleCardsType])
 
 

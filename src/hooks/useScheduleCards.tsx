@@ -1,9 +1,9 @@
 import {useMemo} from "react";
-import {CoreCourseInfo} from "../API/fakeCoreCourseApi";
-import {ElectiveInfo} from "../API/fakeElectiveApi";
 import {MySelectOptionProps} from "../Components/UI/MySelect/MySelect";
+import {IGroup} from "../models/IGroup";
+import {IElective} from "../models/IElective";
 
-export const useSortedScheduleCards = (cards: CoreCourseInfo[] | ElectiveInfo[],
+export const useSortedScheduleCards = (cards: IGroup[] | IElective[],
                                        cardProperty: string,
                                        filterCategory: MySelectOptionProps) => {
     return useMemo(() => {
@@ -15,15 +15,16 @@ export const useSortedScheduleCards = (cards: CoreCourseInfo[] | ElectiveInfo[],
 }
 
 
-export const useScheduleCards = (cards: CoreCourseInfo[] | ElectiveInfo[],
+export const useScheduleCards = (cards: IGroup[] | IElective[],
                          cardProperty: string,
                          filterCategory: MySelectOptionProps,
                          searchQuery: string) => {
     const sortedScheduleCards = useSortedScheduleCards(cards, cardProperty, filterCategory);
 
     return useMemo(() => {
-        return sortedScheduleCards.filter((card: CoreCourseInfo | ElectiveInfo) => {
-            const title = "shortName" in card ? card.shortName : card.name;
+        return sortedScheduleCards.filter((card: IGroup | IElective) => {
+            // const title = "shortName" in card ? card.shortName : card.name;
+            const title = card.name;
             return title.toLowerCase().includes(searchQuery.toLowerCase())
         })
     }, [searchQuery, sortedScheduleCards]);

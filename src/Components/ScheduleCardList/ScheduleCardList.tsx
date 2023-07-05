@@ -2,13 +2,14 @@ import React, {Dispatch} from 'react';
 import MyLoader from "../UI/MyLoader/MyLoader";
 import MyButton from "../UI/MyButton/MyButton";
 import MyIcon from "../UI/MyIcon/MyIcon";
-import {CoreCourseInfo} from "../../API/fakeCoreCourseApi";
-import {ElectiveInfo} from "../../API/fakeElectiveApi";
-import {EventProps} from "../../App";
 import cl from './ScheduleCardList.module.css';
+import {EventProps} from "../../pages/homepage/HomePage";
+import {IGroup} from "../../models/IGroup";
+import {IElective} from "../../models/IElective";
+import ElectiveService from "../../services/ElectiveService";
 
 interface ScheduleCardListProps {
-    cards:ElectiveInfo[] | CoreCourseInfo[];
+    cards: IGroup[] | IElective[];
     isLoading: boolean | undefined;
     error: string;
     events: EventProps[];
@@ -16,6 +17,18 @@ interface ScheduleCardListProps {
 }
 
 const ScheduleCardList = ({cards, isLoading, error, events, setEvents}: ScheduleCardListProps) => {
+
+    async function handleAdd (i: IGroup | IElective) {
+        // work only for electives for now
+        const response = await ElectiveService.setElective(i.id);
+
+        return "start_time" in i && "end_time" in i ? setEvents(events.concat({
+            title: i.name,
+            start: i.start_time.replace(' ', 'T'),
+            end: i.end_time.replace(' ', 'T')
+        })) : ""
+    }
+
     return (
         <div className={cl.addSection__scheduleCards}>
             {isLoading ?
@@ -25,10 +38,10 @@ const ScheduleCardList = ({cards, isLoading, error, events, setEvents}: Schedule
                         key={i.id}
                         backgroundColor="white"
                         color="black"
-                        text={"shortName" in i ? i.shortName : i.name}
+                        text={i.name}
+                        // text={"shortName" in i ? i.shortName : i.name}
                         icon={<MyIcon type="download" color="black"/>}
-                        icon2={<MyIcon type="add" color="black"
-                                       onClick={() => i.events ? setEvents(events.concat(i.events)) : ""}/>}
+                        icon2={<MyIcon type="add" color="black" onClick={()=>handleAdd(i)}/>}
                     />
                 )
             }

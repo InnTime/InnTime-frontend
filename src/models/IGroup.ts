@@ -3,5 +3,5 @@ export interface IGroup {
     name: string;
     year: string;
     type: string;
-    number: number
+    number: number | null
 }
