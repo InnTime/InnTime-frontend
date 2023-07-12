@@ -1,8 +1,7 @@
-import {IUser} from "../models/IUser";
 import {makeAutoObservable} from "mobx";
 import AuthService from "../services/AuthService";
 
-export default class Store {
+export default class AuthStore {
     isAuth = false;
 
     constructor() {

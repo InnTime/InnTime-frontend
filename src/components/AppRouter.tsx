@@ -6,11 +6,11 @@ import {authRoutes, publicRoutes} from "../routes";
 import {HOME_ROUTE, LOGIN_ROUTE} from "../utils/consts";
 
 const AppRouter = () => {
-    const {store} = useContext(Context);
+    const {auth} = useContext(Context);
 
     return (
         <Routes>
-            {store.isAuth && authRoutes.map(({path, element}) =>
+            {auth.isAuth && authRoutes.map(({path, element}) =>
                 <Route key={path} path={path} element={element}/>
             )}
             {publicRoutes.map(({path, element}) =>

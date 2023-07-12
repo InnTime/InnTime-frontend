@@ -3,13 +3,13 @@ import {Context} from "../../index";
 import {IGroup} from "../../models/IGroup";
 import GroupService from "../../services/GroupService";
 import {observer} from "mobx-react-lite";
-import {Navigate, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {HOME_ROUTE} from "../../utils/consts";
 
 const LoginForm = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-    const {store} = useContext(Context);
+    const {auth} = useContext(Context);
     const [groups, setGroups] = useState<IGroup[]>([]);
     const [groupId, setGroupId] = useState<number>(1);
 
@@ -34,7 +34,7 @@ const LoginForm = () => {
 
     return (groupId !== undefined ?
             <div>
-                <h1>{store.isAuth ? "Пользователь авторизован" : "Авторизуйтесь"}</h1>
+                <h1>{auth.isAuth ? "Пользователь авторизован" : "Авторизуйтесь"}</h1>
                 <input
                     onChange={e => setEmail(e.target.value)}
                     value={email}
@@ -51,13 +51,15 @@ const LoginForm = () => {
                     {groups.map(g => <option key={g.id}>{g.name}</option>)}
                 </select>
                 <button onClick={() => {
-                    store.registration(email, password, groupId);
-                    if (store.isAuth) navigate(HOME_ROUTE);
-                }}>Register</button>
+                    auth.registration(email, password, groupId);
+                    if (auth.isAuth) navigate(HOME_ROUTE);
+                }}>Register
+                </button>
                 <button onClick={() => {
-                    store.login(email, password)
-                    if (store.isAuth) navigate(HOME_ROUTE);
-                }}>Login</button>
+                    auth.login(email, password)
+                    if (auth.isAuth) navigate(HOME_ROUTE);
+                }}>Login
+                </button>
             </div> : <div>loading...</div>
     );
 };

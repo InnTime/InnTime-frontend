@@ -1,16 +1,14 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import cl from './CalendarSection.module.css'
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from '@fullcalendar/list';
-import {EventProps} from "../../pages/homepage/HomePage";
+import {observer} from "mobx-react-lite";
+import {Context} from "../../index";
 
-interface CalendarProps {
-    events: EventProps[]
-}
-
-const CalendarSection = ({events} : CalendarProps) => {
+const CalendarSection = () => {
+    const {event} = useContext(Context);
     return (
         <div className={cl.calendarSection}>
             <FullCalendar
@@ -25,10 +23,10 @@ const CalendarSection = ({events} : CalendarProps) => {
                 nowIndicator={true}
                 slotMinTime={"09:00:00"}
                 slotMaxTime={"21:00:00"}
-                events={events}
+                events={event.events}
             />
         </div>
     );
 };
 
-export default CalendarSection;
+export default observer(CalendarSection);

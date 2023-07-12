@@ -1,16 +1,16 @@
 import React, {useContext, useEffect} from 'react';
-import {Context} from "./index";
 import {observer} from "mobx-react-lite";
 import {BrowserRouter} from "react-router-dom";
-import AppRouter from "./Components/AppRouter";
+import AppRouter from "./components/AppRouter";
+import {Context} from "./index";
 
 
 const App = () => {
-    const {store} = useContext(Context);
+    const {auth} = useContext(Context);
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
-            store.setAuth(true);
+            auth.setAuth(true);
         }
     }, [])
 

@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import './MySelect.css';
 import MyIcon from "../MyIcon/MyIcon";
-import {IGroup} from "../../../models/IGroup";
 
 export interface MySelectOptionProps {
     value: string;

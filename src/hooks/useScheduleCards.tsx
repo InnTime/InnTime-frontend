@@ -1,5 +1,5 @@
 import {useMemo} from "react";
-import {MySelectOptionProps} from "../Components/UI/MySelect/MySelect";
+import {MySelectOptionProps} from "../components/UI/MySelect/MySelect";
 import {IGroup} from "../models/IGroup";
 import {IElective} from "../models/IElective";
 
