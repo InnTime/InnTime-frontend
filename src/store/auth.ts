@@ -22,6 +22,7 @@ export default class AuthStore {
             alert("Error: " + (e as Error).response?.data?.message)
         }
     }
+
     async registration(email: string, password: string, group_id: number) {
         try {
             const response = await AuthService.registration(email, password, group_id);
@@ -32,12 +33,11 @@ export default class AuthStore {
             alert("Error: " + e.response?.data?.message)
         }
     }
+
     async logout() {
         try {
-            const response = await AuthService.logout();
             localStorage.removeItem('token');
             this.setAuth(false);
-
         } catch (e) {
             // @ts-ignore
             alert("Error: " + e.response?.data?.message)

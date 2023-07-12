@@ -1,12 +1,20 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import homepageDecorLeft from "../../assets/homepage-decor-left.svg";
 import logo from "../../assets/logo.svg";
 import homepageDecorRight from "../../assets/homepage-decor-right.svg";
 import MyButton from "../UI/MyButton/MyButton";
 import cl from './HomeSection.module.css';
 import MyIcon from "../UI/MyIcon/MyIcon";
+import {observer} from "mobx-react-lite";
+import {Context} from "../../index";
+import {useNavigate} from "react-router-dom";
+import {HOME_ROUTE} from "../../utils/consts";
 
 const HomeSection = () => {
+
+    const {auth} = useContext(Context);
+    const navigate = useNavigate()
+
     return (
         <div className={cl.homeSection}>
             <img src={homepageDecorLeft} className={cl.backgroundImgLeft} alt="alt"/>
@@ -14,10 +22,14 @@ const HomeSection = () => {
             <img src={homepageDecorRight} className={cl.backgroundImgRight} alt="alt"/>
             <div className={cl.buttons}>
                 <MyButton
-                    text="Login"
-                    icon={<MyIcon type='user' color='black'/>}
+                    text="Logout"
+                    icon={<MyIcon type='logout' color='black'/>}
                     backgroundColor='white'
                     color='black'
+                    onClick={() => {
+                        auth.logout()
+                        navigate(HOME_ROUTE);
+                    }}
                 />
                 <MyButton
                     text="Add events to my calendar"
@@ -36,4 +48,4 @@ const HomeSection = () => {
     );
 };
 
-export default HomeSection;
+export default observer(HomeSection);

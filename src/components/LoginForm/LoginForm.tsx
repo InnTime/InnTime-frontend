@@ -15,6 +15,10 @@ const LoginForm = () => {
 
     const navigate = useNavigate();
 
+    if (auth.isAuth) {
+        navigate(HOME_ROUTE);
+    }
+
     async function getGroups() {
         try {
             const response = await GroupService.fetchGroups();
@@ -52,12 +56,10 @@ const LoginForm = () => {
                 </select>
                 <button onClick={() => {
                     auth.registration(email, password, groupId);
-                    if (auth.isAuth) navigate(HOME_ROUTE);
                 }}>Register
                 </button>
                 <button onClick={() => {
                     auth.login(email, password)
-                    if (auth.isAuth) navigate(HOME_ROUTE);
                 }}>Login
                 </button>
             </div> : <div>loading...</div>

@@ -5,28 +5,51 @@ import {IGroup} from "../../../models/IGroup";
 import {IElective} from "../../../models/IElective";
 import {Context} from "../../../index";
 import {observer} from "mobx-react-lite";
+import {IEvent} from "../../../models/IEvent";
+import CardStore from "../../../store/card";
 
 interface IScheduleCardItem {
+    cards: CardStore;
     card: IGroup | IElective;
+    isSelected: boolean;
 }
 
-const ScheduleCardItem = ({card}: IScheduleCardItem) => {
+const ScheduleCardItem = ({cards, card, isSelected}: IScheduleCardItem) => {
     const {event} = useContext(Context);
 
-    const [isSelected, setIsSelected] = useState(false);
+    async function handleAdd(i: IGroup | IElective) {
+        // make selected
+        cards.addToSelectedCards(card)
 
-    async function handleAdd (i: IGroup | IElective) {
-        // work only for electives for now
-        // const response = await ElectiveService.setElective(i.id);
+        // add event to calendar
 
-        return "start_time" in i && "end_time" in i ? event.addToSelectedEvents([{
-            title: i.name,
-            start: i.start_time.replace(' ', 'T'),
-            end: i.end_time.replace(' ', 'T')
-        }])  : ""
+        // if group
+
+
+
+        // if elective
+        if ("start_time" in i && "end_time" in i) {
+            const newEvent = {
+                title: i.name,
+                start: i.start_time.replace(' ', 'T'),
+                end: i.end_time.replace(' ', 'T')
+            } as IEvent;
+            event.addEvent(newEvent)
+        }
     }
 
-    function handleRemove (i: IGroup | IElective) {
+    function handleRemove(i: IGroup | IElective) {
+        // make unselected
+
+        cards.removeFromSelectedCards(card)
+
+        // remove event from calendar
+
+        // if group
+
+
+
+        // if elective
 
     }
 

@@ -33,13 +33,17 @@ export default class CardStore {
         this.setFilteredCards(this.filteredScheduleCards());
     }
 
-    // addToSelectedCards(newGroups: IGroup[] | IElective[]) {
-    //     this.selectedCards.concat(newGroups)
-    // }
+    addToSelectedCards(newCard: IGroup | IElective) {
+        this.selectedCards = [...this.selectedCards, newCard]
+        this.cards = this.cards.filter(x => x.id !== newCard.id);
+        this.filteredCards = this.filteredCards.filter(x => x.id !== newCard.id);
+    }
 
-    // removeFromSelectedGroups(toRemoveGroups: IGroup[]) {
-    //     this.selectedGroups = this.selectedGroups.filter(x => !toRemoveGroups.includes(x));
-    // }
+    removeFromSelectedCards(toRemoveCard: IGroup | IElective) {
+        this.selectedCards = this.selectedCards.filter(x => x.id !== toRemoveCard.id);
+        this.cards = [...this.cards, toRemoveCard]
+        this.filteredCards = [...this.filteredCards, toRemoveCard]
+    }
 
     sortedScheduleCards(): (IGroup | IElective)[] {
         const sortOptionVal = this.filter.sortOption.value;

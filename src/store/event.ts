@@ -1,7 +1,5 @@
 import {makeAutoObservable} from "mobx";
 import {IEvent} from "../models/IEvent";
-import {IGroup} from "../models/IGroup";
-import {IElective} from "../models/IElective";
 
 
 export default class EventStore {
@@ -12,8 +10,8 @@ export default class EventStore {
         makeAutoObservable(this);
     }
 
-    addToSelectedEvents(newEvents: IEvent[]) {
-        this.events.concat(newEvents)
+    addEvent(newEvents: IEvent) {
+        this.events = [...this.events, newEvents]
     }
 
     removeFromSelectedEvents(toRemoveEvents: IEvent[]) {

@@ -11,10 +11,11 @@ import userWhiteIcon from '../../../assets/icons/user-white.svg';
 import userBlackIcon from '../../../assets/icons/user-black.svg';
 import caretUpIcon from '../../../assets/icons/caret-up.svg';
 import caretDownIcon from '../../../assets/icons/caret-down.svg';
+import logoutIcon from '../../../assets/icons/logout.svg';
 
 
 export interface IconProps {
-    type: "add" | "remove" | "calendar" | "download" | "user" | "caret-up" | "caret-down",
+    type: "add" | "remove" | "calendar" | "download" | "user" | "caret-up" | "caret-down"| 'logout',
     color?: 'white' | 'black',
     size?: 'small' | 'medium',
     onClick?: () => void;
@@ -56,6 +57,9 @@ const MyIcon = ({type, color, size, onClick}: IconProps) => {
         case 'download':
             if (color === 'white') src = cloudDownloadWhiteIcon;
             else if (color === 'black') src = cloudDownloadBlackIcon;
+            break;
+        case 'logout':
+            src = logoutIcon;
             break;
         default:
             break;

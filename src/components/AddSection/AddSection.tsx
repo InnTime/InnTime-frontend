@@ -45,16 +45,14 @@ const AddSection = () => {
                 <section className={cl.addSection__scheduleCards}>
                     {
                         cardsTypeFilter.scheduleCardsType?.value === 'elective' ?
-                            <ScheduleCardList cards={elective.filteredCards}
+                            <ScheduleCardList cards={elective}
                                               isLoading={isElectivesLoading}
                                               error={electiveError}
-                                              filter={elective.filter}
                             />
                             :
-                            <ScheduleCardList cards={group.filteredCards}
+                            <ScheduleCardList cards={group}
                                               isLoading={isGroupsLoading}
                                               error={groupsError}
-                                              filter={group.filter}
                             />
                     }
                 </section>
