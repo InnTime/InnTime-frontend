@@ -5,6 +5,7 @@ import GroupService from "../../services/GroupService";
 import {observer} from "mobx-react-lite";
 import {useNavigate} from "react-router-dom";
 import {HOME_ROUTE} from "../../utils/consts";
+import {useFetching} from "../../hooks/useFetching";
 
 const LoginForm = () => {
     const [email, setEmail] = useState<string>('');
@@ -18,23 +19,19 @@ const LoginForm = () => {
     if (auth.isAuth) {
         navigate(HOME_ROUTE);
     }
-
-    async function getGroups() {
-        try {
-            const response = await GroupService.fetchGroups();
-            setGroups(() => response.data);
-        } catch (e) {
-            console.log(e)
-        }
-    }
-
-    useEffect(() => {
-        getGroups();
-    }, [])
+    const [fetchGroups, isGroupsLoading, groupsError] = useFetching(async () => {
+        const response = await GroupService.fetchGroups();
+        setGroups(response.data);
+    })
 
     useEffect(() => {
         if (!groupId) setGroupId(groups[0].id)
     }, [groups])
+
+    useEffect(() => {
+        fetchGroups()
+    }, [])
+
 
     return (groupId !== undefined ?
             <div>

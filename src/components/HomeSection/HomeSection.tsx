@@ -15,6 +15,10 @@ const HomeSection = () => {
     const {auth} = useContext(Context);
     const navigate = useNavigate()
 
+    if (!auth.isAuth){
+        navigate(HOME_ROUTE);
+    }
+
     return (
         <div className={cl.homeSection}>
             <img src={homepageDecorLeft} className={cl.backgroundImgLeft} alt="alt"/>
@@ -28,7 +32,6 @@ const HomeSection = () => {
                     color='black'
                     onClick={() => {
                         auth.logout()
-                        navigate(HOME_ROUTE);
                     }}
                 />
                 <MyButton

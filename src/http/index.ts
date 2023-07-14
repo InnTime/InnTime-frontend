@@ -12,4 +12,9 @@ $api.interceptors.request.use((config)=>{
     return config;
 })
 
+$api.interceptors.response.use((config)=>{
+    config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
+    return config;
+})
+
 export default $api;

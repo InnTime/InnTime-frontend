@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import MyIcon from "../../UI/MyIcon/MyIcon";
 import MyButton from "../../UI/MyButton/MyButton";
 import {IGroup} from "../../../models/IGroup";
@@ -7,6 +7,9 @@ import {Context} from "../../../index";
 import {observer} from "mobx-react-lite";
 import {IEvent} from "../../../models/IEvent";
 import CardStore from "../../../store/card";
+import GroupService from "../../../services/GroupService";
+import CourseService from "../../../services/CourseService";
+import ElectiveService from "../../../services/ElectiveService";
 
 interface IScheduleCardItem {
     cards: CardStore;
@@ -21,21 +24,26 @@ const ScheduleCardItem = ({cards, card, isSelected}: IScheduleCardItem) => {
         // make selected
         cards.addToSelectedCards(card)
 
-        // add event to calendar
+        // add events to calendar
 
-        // if group
+        if ("number" in i) {
+            // if group
+            const setUserGroupResponse = await GroupService.setUserGroup(i.id);
 
+            const fetchUserCoursesResponse = await CourseService.fetchUserCourses();
+            const courses = fetchUserCoursesResponse.data;
 
+            event.addCourses(courses)
+        } else {
+            // if elective
+            const setElectiveResponse = await ElectiveService.setElective(i.name);
+            console.log(setElectiveResponse);
 
-        // if elective
-        if ("start_time" in i && "end_time" in i) {
-            const newEvent = {
-                title: i.name,
-                start: i.start_time.replace(' ', 'T'),
-                end: i.end_time.replace(' ', 'T')
-            } as IEvent;
-            event.addEvent(newEvent)
+            const userElectivesResponse = await ElectiveService.fetchUserElectives();
+            const electives = userElectivesResponse.data;
+            event.addElectives(electives)
         }
+
     }
 
     function handleRemove(i: IGroup | IElective) {
@@ -46,7 +54,6 @@ const ScheduleCardItem = ({cards, card, isSelected}: IScheduleCardItem) => {
         // remove event from calendar
 
         // if group
-
 
 
         // if elective

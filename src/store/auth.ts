@@ -27,7 +27,6 @@ export default class AuthStore {
         try {
             const response = await AuthService.registration(email, password, group_id);
             await this.login(email, password)
-
         } catch (e) {
             // @ts-ignore
             alert("Error: " + e.response?.data?.message)

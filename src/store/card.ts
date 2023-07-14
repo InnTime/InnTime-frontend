@@ -28,9 +28,14 @@ export default class CardStore {
         this.filteredCards = newCards;
     }
 
+    setSelectedCards(newCards: (IGroup | IElective)[]) {
+        this.selectedCards = newCards;
+    }
+
     setFilter(newFilter: FilterProps) {
         this.filter = newFilter;
         this.setFilteredCards(this.filteredScheduleCards());
+
     }
 
     addToSelectedCards(newCard: IGroup | IElective) {
