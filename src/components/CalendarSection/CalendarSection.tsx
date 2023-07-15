@@ -88,7 +88,7 @@ const CalendarSection = () => {
                     nowIndicator={true}
                     slotMinTime={'09:00:00'}
                     slotMaxTime={'21:00:00'}
-                    events={event.events}
+                    events={event.courses.concat(event.electives)}
                 />
             </div>
             <div style={{display: 'flex', justifyContent: 'center', margin: '20px 0'}}>

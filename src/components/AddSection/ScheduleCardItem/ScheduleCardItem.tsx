@@ -39,9 +39,7 @@ const ScheduleCardItem = ({cards, card, isSelected}: IScheduleCardItem) => {
             const setElectiveResponse = await ElectiveService.setElective(i.name);
             console.log(setElectiveResponse);
 
-            const userElectivesResponse = await ElectiveService.fetchUserElectives();
-            const electives = userElectivesResponse.data;
-            event.addElectives(electives)
+            await event.addElectives()
         }
 
     }

@@ -22,7 +22,6 @@ const AddSection = () => {
 
         const userCoursesResponse = await CourseService.fetchUserCourses();
         event.addCourses(userCoursesResponse.data);
-
     })
 
     const [fetchElectives, isElectivesLoading, electiveError] = useFetching(async () => {
@@ -30,6 +29,8 @@ const AddSection = () => {
         elective.setCards(electivesResponse.data);
 
         const userElectivesResponse = await ElectiveService.fetchUserElectives();
+        await event.addElectives();
+
         const selectedElectives = new Set(userElectivesResponse.data.map(x => x.name));
         elective.setSelectedCards(elective.cards.filter((card) => selectedElectives.has(card.name)));
         elective.setFilteredCards(elective.cards.filter((card)=> !selectedElectives.has(card.name)))

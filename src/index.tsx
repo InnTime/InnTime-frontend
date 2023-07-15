@@ -18,7 +18,12 @@ export const Context = createContext({
 root.render(
     <React.StrictMode>
         <Context.Provider
-            value={{auth: new AuthStore(), event: new EventStore(), group: new CardStore('year'), elective: new CardStore('type')}}>
+            value={{
+                auth: new AuthStore(),
+                event: new EventStore(),
+                group: new CardStore('year'),
+                elective: new CardStore('type')
+            }}>
             <App/>
         </Context.Provider>
     </React.StrictMode>
