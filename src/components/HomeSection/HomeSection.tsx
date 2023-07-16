@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 import homepageDecorLeft from "../../assets/homepage-decor-left.svg";
 import logo from "../../assets/logo.svg";
 import homepageDecorRight from "../../assets/homepage-decor-right.svg";
@@ -8,11 +8,12 @@ import MyIcon from "../UI/MyIcon/MyIcon";
 import {observer} from "mobx-react-lite";
 import {Context} from "../../index";
 import {useNavigate} from "react-router-dom";
-import {HOME_ROUTE} from "../../utils/consts";
+import {LOGIN_ROUTE} from "../../utils/consts";
 
 const HomeSection = () => {
 
     const {auth} = useContext(Context);
+    const navigate = useNavigate();
 
     return (
         <div className={cl.homeSection}>
@@ -25,8 +26,8 @@ const HomeSection = () => {
                     icon={<MyIcon type='logout' color='black'/>}
                     backgroundColor='white'
                     color='black'
-                    onClick={async () => {
-                        await auth.logout()
+                    onClick={() => {
+                        auth.logout().then(() => navigate(LOGIN_ROUTE))
                     }}
                 />
                 <MyButton

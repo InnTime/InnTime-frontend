@@ -35,9 +35,10 @@ export default class AuthStore {
 
     async logout() {
         try {
-            await AuthService.logout()
+            // await AuthService.logout()
             localStorage.removeItem('token');
             this.setAuth(false);
+
         } catch (e) {
             // @ts-ignore
             alert("Error: " + e.response?.data?.message)

@@ -57,7 +57,7 @@ const LoginForm = () => {
                 }}>Register
                 </button>
                 <button onClick={() => {
-                    auth.login(email, password)
+                    auth.login(email, password).then(() => navigate(HOME_ROUTE))
                 }}>Login
                 </button>
             </div> : <div>loading...</div>
