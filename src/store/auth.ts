@@ -35,6 +35,7 @@ export default class AuthStore {
 
     async logout() {
         try {
+            await AuthService.logout()
             localStorage.removeItem('token');
             this.setAuth(false);
         } catch (e) {

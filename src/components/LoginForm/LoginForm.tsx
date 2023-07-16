@@ -16,9 +16,6 @@ const LoginForm = () => {
 
     const navigate = useNavigate();
 
-    if (auth.isAuth) {
-        navigate(HOME_ROUTE);
-    }
     const [fetchGroups, isGroupsLoading, groupsError] = useFetching(async () => {
         const response = await GroupService.fetchGroups();
         setGroups(response.data);
@@ -29,7 +26,11 @@ const LoginForm = () => {
     }, [groups])
 
     useEffect(() => {
-        fetchGroups()
+        if (auth.isAuth) {
+            navigate(HOME_ROUTE);
+        } else {
+            fetchGroups()
+        }
     }, [])
 
 

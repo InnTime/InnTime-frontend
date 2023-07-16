@@ -21,7 +21,6 @@ export default class CardStore {
 
     setCards(newCards: (IGroup | IElective)[]) {
         this.cards = newCards;
-        this.filteredCards = newCards;
     }
 
     setFilteredCards(newCards: (IGroup | IElective)[]) {
@@ -30,50 +29,48 @@ export default class CardStore {
 
     setSelectedCards(newCards: (IGroup | IElective)[]) {
         this.selectedCards = newCards;
+        this.filteredCards = this.sortedScheduleCards()
     }
 
     setFilter(newFilter: FilterProps) {
         this.filter = newFilter;
         this.setFilteredCards(this.filteredScheduleCards());
-
     }
 
     addToSelectedCards(newCard: IGroup | IElective) {
         this.selectedCards = [...this.selectedCards, newCard]
-        this.cards = this.cards.filter(x => x.id !== newCard.id);
-        this.filteredCards = this.filteredCards.filter(x => x.id !== newCard.id);
+        this.filteredCards = this.sortedScheduleCards()
     }
 
     removeFromSelectedCards(toRemoveCard: IGroup | IElective) {
-        this.selectedCards = this.selectedCards.filter(x => x.id !== toRemoveCard.id);
-        this.cards = [...this.cards, toRemoveCard]
-        this.filteredCards = [...this.filteredCards, toRemoveCard]
+        this.selectedCards = this.selectedCards.filter(x => x.name !== toRemoveCard.name);
+        this.filteredCards = this.sortedScheduleCards()
     }
 
     sortedScheduleCards(): (IGroup | IElective)[] {
         const sortOptionVal = this.filter.sortOption.value;
 
         if (sortOptionVal === "all") {
-            return this.cards;
+            return this.cards.filter((card) => !this.selectedCards.includes(card));
         }
 
-        return this.cards.filter((card) => {
-            // @ts-ignore
-            return (this.cards.filter((card) => card[this.cardAttribute].toString() === sortOptionVal));
-        });
+        return this.cards.filter((card) =>
+            !this.selectedCards.includes(card) &&
+            //@ts-ignore
+            card[this.cardAttribute].toString() === sortOptionVal);
     }
 
     filteredScheduleCards(): (IGroup | IElective)[] {
         const {searchQuery} = this.filter;
 
         if (searchQuery.length === 0) {
-            return this.cards;
+            return this.cards.filter((card) => !this.selectedCards.includes(card));
         }
 
         return this.sortedScheduleCards().filter((card) => {
             // const title = "shortName" in card ? card.shortName : card.name;
             const title = card.name;
-            return title.toLowerCase().includes(searchQuery.toLowerCase());
+            return !this.selectedCards.includes(card) && title.toLowerCase().includes(searchQuery.toLowerCase());
         });
     }
 }

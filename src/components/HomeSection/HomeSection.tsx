@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import homepageDecorLeft from "../../assets/homepage-decor-left.svg";
 import logo from "../../assets/logo.svg";
 import homepageDecorRight from "../../assets/homepage-decor-right.svg";
@@ -13,11 +13,6 @@ import {HOME_ROUTE} from "../../utils/consts";
 const HomeSection = () => {
 
     const {auth} = useContext(Context);
-    const navigate = useNavigate()
-
-    if (!auth.isAuth){
-        navigate(HOME_ROUTE);
-    }
 
     return (
         <div className={cl.homeSection}>
@@ -30,8 +25,8 @@ const HomeSection = () => {
                     icon={<MyIcon type='logout' color='black'/>}
                     backgroundColor='white'
                     color='black'
-                    onClick={() => {
-                        auth.logout()
+                    onClick={async () => {
+                        await auth.logout()
                     }}
                 />
                 <MyButton

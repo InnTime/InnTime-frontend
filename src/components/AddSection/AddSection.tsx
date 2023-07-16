@@ -7,7 +7,6 @@ import GroupService from "../../services/GroupService";
 import ElectiveService from "../../services/ElectiveService";
 import {observer} from 'mobx-react-lite';
 import {Context} from "../../index";
-import CourseService from "../../services/CourseService";
 
 const AddSection = () => {
     const {group, elective, event} = useContext(Context);
@@ -20,8 +19,15 @@ const AddSection = () => {
         const response = await GroupService.fetchGroups();
         group.setCards(response.data);
 
-        const userCoursesResponse = await CourseService.fetchUserCourses();
-        event.addCourses(userCoursesResponse.data);
+        const userGroupResponse = await GroupService.fetchUserGroupId();
+        const selectedGroupId = userGroupResponse.data;
+        if (selectedGroupId) {
+            group.setSelectedCards(group.cards.filter((card) => card.id === selectedGroupId))
+            // group.setFilteredCards(group.cards.filter((card) => card.id !== selectedGroupId))
+            await event.updateCourses();
+        } else {
+            group.setFilteredCards(group.cards)
+        }
     })
 
     const [fetchElectives, isElectivesLoading, electiveError] = useFetching(async () => {
@@ -29,11 +35,11 @@ const AddSection = () => {
         elective.setCards(electivesResponse.data);
 
         const userElectivesResponse = await ElectiveService.fetchUserElectives();
-        await event.addElectives();
+        await event.updateElectives();
 
         const selectedElectives = new Set(userElectivesResponse.data.map(x => x.name));
         elective.setSelectedCards(elective.cards.filter((card) => selectedElectives.has(card.name)));
-        elective.setFilteredCards(elective.cards.filter((card)=> !selectedElectives.has(card.name)))
+        // elective.setFilteredCards(elective.cards.filter((card) => !selectedElectives.has(card.name)))
     })
 
     useEffect(() => {

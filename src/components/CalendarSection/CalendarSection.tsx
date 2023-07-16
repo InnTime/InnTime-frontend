@@ -93,7 +93,8 @@ const CalendarSection = () => {
             </div>
             <div style={{display: 'flex', justifyContent: 'center', margin: '20px 0'}}>
                 <MyButton backgroundColor={'yellow'} color={'black'} text={'Import my calendar'}
-                          onClick={() => importAllToGoogleCalendar(event.events)}/>
+                          // onClick={() => importAllToGoogleCalendar(event.events)}
+                />
             </div>
         </div>
     );

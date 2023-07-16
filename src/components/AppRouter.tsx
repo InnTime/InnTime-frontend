@@ -1,14 +1,15 @@
 import React, {useContext} from 'react';
-import {Navigate, Route, Routes} from "react-router-dom";
+import {Route, Routes, useNavigate} from "react-router-dom";
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
 import {authRoutes, publicRoutes} from "../routes";
-import {HOME_ROUTE, LOGIN_ROUTE} from "../utils/consts";
+import ErrorPage from "../pages/errorpage/ErrorPage";
 
 const AppRouter = () => {
     const {auth} = useContext(Context);
 
     return (
+
         <Routes>
             {auth.isAuth && authRoutes.map(({path, element}) =>
                 <Route key={path} path={path} element={element}/>
@@ -16,7 +17,7 @@ const AppRouter = () => {
             {publicRoutes.map(({path, element}) =>
                 <Route key={path} path={path} element={element}/>
             )}
-            {auth.isAuth? <Route path='*' element={<Navigate to={HOME_ROUTE}/>}/> : <Route path='*' element={<Navigate to={LOGIN_ROUTE}/>}/>}
+            <Route path="*" element={<ErrorPage/>}/>
         </Routes>
     );
 };

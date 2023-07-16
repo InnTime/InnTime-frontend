@@ -12,18 +12,21 @@ interface ScheduleCardListProps {
 }
 
 const ScheduleCardList = ({cards, isLoading, error}: ScheduleCardListProps) => {
+    if (isLoading) return <MyLoader/>
+
+    // if (error) return console.log(error);
+
+
     return (
         <div className={cl.addSection__scheduleCards}>
-            {isLoading ?
-                <MyLoader/>
-                : cards.selectedCards.map(i => <ScheduleCardItem key={i.id}
-                                                                 card={i}
-                                                                 cards={cards}
-                                                                 isSelected={true}/>)
-                    .concat(cards.filteredCards.map(i => <ScheduleCardItem key={i.id}
-                                                                           card={i}
-                                                                           cards={cards}
-                                                                           isSelected={false}/>))
+            {cards.selectedCards.map(i => <ScheduleCardItem key={i.name}
+                                                            card={i}
+                                                            cards={cards}
+                                                            isSelected={true}/>)
+                .concat(cards.filteredCards.map(i => <ScheduleCardItem key={i.name}
+                                                                       card={i}
+                                                                       cards={cards}
+                                                                       isSelected={false}/>))
             }
         </div>
     );

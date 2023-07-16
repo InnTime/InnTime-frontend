@@ -15,6 +15,7 @@ export const Context = createContext({
     elective: {} as CardStore
 })
 
+
 root.render(
     <React.StrictMode>
         <Context.Provider

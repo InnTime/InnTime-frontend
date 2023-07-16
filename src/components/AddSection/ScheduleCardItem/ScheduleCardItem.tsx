@@ -5,10 +5,8 @@ import {IGroup} from "../../../models/IGroup";
 import {IElective} from "../../../models/IElective";
 import {Context} from "../../../index";
 import {observer} from "mobx-react-lite";
-import {IEvent} from "../../../models/IEvent";
 import CardStore from "../../../store/card";
 import GroupService from "../../../services/GroupService";
-import CourseService from "../../../services/CourseService";
 import ElectiveService from "../../../services/ElectiveService";
 
 interface IScheduleCardItem {
@@ -22,60 +20,55 @@ const ScheduleCardItem = ({cards, card, isSelected}: IScheduleCardItem) => {
 
     async function handleAdd(i: IGroup | IElective) {
         // make selected
-        cards.addToSelectedCards(card)
 
         // add events to calendar
 
         if ("number" in i) {
+            cards.setSelectedCards([card])
             // if group
-            const setUserGroupResponse = await GroupService.setUserGroup(i.id);
-
-            const fetchUserCoursesResponse = await CourseService.fetchUserCourses();
-            const courses = fetchUserCoursesResponse.data;
-
-            event.addCourses(courses)
+            await GroupService.setUserGroup(i.id);
+            await event.updateCourses()
         } else {
+            cards.addToSelectedCards(card)
             // if elective
-            const setElectiveResponse = await ElectiveService.setElective(i.name);
-            console.log(setElectiveResponse);
-
-            await event.addElectives()
+            await ElectiveService.setElective(i.name);
+            await event.updateElectives()
         }
-
     }
 
-    function handleRemove(i: IGroup | IElective) {
+    async function handleRemove(i: IGroup | IElective) {
         // make unselected
 
         cards.removeFromSelectedCards(card)
 
         // remove event from calendar
 
-        // if group
+        if ("number" in i) {
+            // if group
+            await GroupService.unsetUserGroup(i.id);
+            await event.updateCourses()
 
-
-        // if elective
-
+        } else {
+            // if elective
+            await ElectiveService.deleteUserElective(i.name);
+            await event.updateElectives()
+        }
     }
 
     if (isSelected) {
         return <MyButton
-            key={card.id}
             backgroundColor="yellow"
             color="black"
             text={card.name}
-            // text={"shortName" in i ? i.shortName : i.name}
             icon={<MyIcon type="download" color="black"/>}
             icon2={<MyIcon type="remove" color="black" onClick={() => handleRemove(card)}/>}
         />
     }
     return (
         <MyButton
-            key={card.id}
             backgroundColor="white"
             color="black"
             text={card.name}
-            // text={"shortName" in i ? i.shortName : i.name}
             icon={<MyIcon type="download" color="black"/>}
             icon2={<MyIcon type="add" color="black" onClick={() => handleAdd(card)}/>}
         />

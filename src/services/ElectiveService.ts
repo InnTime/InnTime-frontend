@@ -8,7 +8,11 @@ export default class ElectiveService {
     }
 
     static setElective(elective_name: string): Promise<AxiosResponse> {
-        return $api.post('/set_elective', {elective_name})
+        return $api.post('/set_user_elective', {elective_name})
+    }
+
+    static deleteUserElective(elective_name: string): Promise<AxiosResponse> {
+        return $api.delete('/delete_user_elective', {data: {elective_name: elective_name}})
     }
 
     static fetchUserElectives(): Promise<AxiosResponse<IElective[]>> {
