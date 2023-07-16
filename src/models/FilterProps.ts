@@ -1,6 +1,7 @@
-import {MySelectOptionProps} from "../components/UI/MySelect/MySelect";
+import {SortProps} from "./SortProps";
 
 export interface FilterProps {
-    sortOption: MySelectOptionProps,
+    sorts: SortProps[],
     searchQuery: string
 }
+

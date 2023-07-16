@@ -1,5 +1,5 @@
 import HomeSection from "./components/HomeSection/HomeSection";
-import {HOME_ROUTE, LOGIN_ROUTE} from "./utils/consts";
+import {HOME_ROUTE, LOGIN_ROUTE} from "./utils/routesPaths";
 import LoginForm from "./components/LoginForm/LoginForm";
 import React from "react";
 import Homepage from "./pages/homepage/HomePage";

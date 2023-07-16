@@ -1,26 +1,29 @@
 import React from 'react';
-import MySelect, {MySelectOptionProps} from "../../../UI/MySelect/MySelect";
+import MySelect from "../../../UI/MySelect/MySelect";
 import MyInput from "../../../UI/MyInput/MyInput";
 import CardStore from "../../../../store/card";
 import {observer} from "mobx-react-lite";
+import {SortProps} from "../../../../models/SortProps";
 
 
 interface ScheduleCardFilterSelectProps {
     cards: CardStore,
-    secondFilterOptions: Array<MySelectOptionProps>
 }
 
-const ScheduleCardFilterSelect = ({cards, secondFilterOptions}: ScheduleCardFilterSelectProps) => {
+const ScheduleCardFilterSelect = ({cards}: ScheduleCardFilterSelectProps) => {
 
     return (
         <div>
-            <MySelect
-                options={secondFilterOptions}
-                handleOnClick={selected => cards.setFilter({
-                    ...cards.filter,
-                    sortOption: selected
-                })}
-            />
+            {cards.filter.sorts.map((sort, index) => {
+                return <MySelect
+                    key={sort.cardAttribute}
+                    options={sort.options}
+                    handleOnClick={selected => cards.setSort(index, {
+                        ...sort,
+                        option: selected
+                    })}
+                />
+            })}
             <MyInput value={cards.filter.searchQuery} onChange={e => cards.setFilter({
                 ...cards.filter,
                 searchQuery: e.target.value

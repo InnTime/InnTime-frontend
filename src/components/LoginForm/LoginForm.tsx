@@ -4,7 +4,7 @@ import {IGroup} from "../../models/IGroup";
 import GroupService from "../../services/GroupService";
 import {observer} from "mobx-react-lite";
 import {useNavigate} from "react-router-dom";
-import {HOME_ROUTE} from "../../utils/consts";
+import {HOME_ROUTE} from "../../utils/routesPaths";
 import {useFetching} from "../../hooks/useFetching";
 
 const LoginForm = () => {

@@ -8,7 +8,7 @@ import MyIcon from "../UI/MyIcon/MyIcon";
 import {observer} from "mobx-react-lite";
 import {Context} from "../../index";
 import {useNavigate} from "react-router-dom";
-import {LOGIN_ROUTE} from "../../utils/consts";
+import {LOGIN_ROUTE} from "../../utils/routesPaths";
 
 const HomeSection = () => {
 

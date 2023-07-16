@@ -4,7 +4,7 @@ import cl from './ScheduleCardFilter.module.css'
 import {Context} from "../../../index";
 import {observer} from 'mobx-react-lite';
 import ScheduleCardFilterSelect from "./ScheduleCardFilterSelect/ScheduleCardFilterSelect";
-import {electiveType, groupsByYears, scheduleCardsTypes} from "../../../utils/consts";
+import {scheduleCardsTypes} from "../../../utils/filterSettings";
 
 
 interface ScheduleCardFilterProps {
@@ -16,14 +16,6 @@ interface ScheduleCardFilterProps {
 const ScheduleCardFilter = ({filter, setFilter}: ScheduleCardFilterProps) => {
     const {elective, group} = useContext(Context);
 
-    const [secondFilterOptions, setSecondFilterOptions] = useState(groupsByYears);
-
-    useEffect(() => {
-        if (filter.scheduleCardsType && filter.scheduleCardsType.value === 'elective') {
-            setSecondFilterOptions(electiveType)
-        } else setSecondFilterOptions(groupsByYears)
-    }, [filter.scheduleCardsType])
-
     return (
         <div className={cl.addSection__filtering}>
             <MySelect
@@ -34,9 +26,9 @@ const ScheduleCardFilter = ({filter, setFilter}: ScheduleCardFilterProps) => {
             />
             {
                 filter.scheduleCardsType?.value === 'elective' ?
-                    <ScheduleCardFilterSelect cards={elective} secondFilterOptions={electiveType}/>
+                    <ScheduleCardFilterSelect cards={elective}/>
                     :
-                    <ScheduleCardFilterSelect cards={group} secondFilterOptions={groupsByYears}/>
+                    <ScheduleCardFilterSelect cards={group}/>
             }
         </div>
     );

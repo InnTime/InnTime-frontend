@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {HOME_ROUTE, LOGIN_ROUTE} from "../../utils/consts";
+import {HOME_ROUTE, LOGIN_ROUTE} from "../../utils/routesPaths";
 import {useNavigate} from "react-router-dom";
 import {Context} from "../../index";
 
