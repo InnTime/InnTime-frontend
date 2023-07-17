@@ -72,7 +72,7 @@ const CalendarSection = () => {
     };
 
     return (
-        <div>
+        <div id='calendar-section'>
             <div className={cl.calendarSection}>
                 <FullCalendar
                     plugins={[dayGridPlugin, timeGridPlugin, listPlugin]}

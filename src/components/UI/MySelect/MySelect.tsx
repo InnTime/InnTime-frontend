@@ -13,7 +13,6 @@ interface MySelectProps {
     handleOnClick: (value: MySelectOptionProps) => void,
 }
 
-
 const MySelect = ({options, handleOnClick}: MySelectProps) => {
     const [isActive, setIsActive] = useState(false);
     const [value, setValue] = useState<MySelectOptionProps>(options[0]);

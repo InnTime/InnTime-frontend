@@ -13,7 +13,7 @@ interface ScheduleCardFilterSelectProps {
 const ScheduleCardFilterSelect = ({cards}: ScheduleCardFilterSelectProps) => {
 
     return (
-        <div>
+        <>
             {cards.filter.sorts.map((sort, index) => {
                 return <MySelect
                     key={sort.cardAttribute}
@@ -28,7 +28,7 @@ const ScheduleCardFilterSelect = ({cards}: ScheduleCardFilterSelectProps) => {
                 ...cards.filter,
                 searchQuery: e.target.value
             })}/>
-        </div>
+        </>
     );
 };
 

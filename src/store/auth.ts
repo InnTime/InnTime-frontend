@@ -23,9 +23,9 @@ export default class AuthStore {
         }
     }
 
-    async registration(email: string, password: string, group_id: number) {
+    async registration(email: string, password: string) {
         try {
-            const response = await AuthService.registration(email, password, group_id);
+            const response = await AuthService.registration(email, password);
             await this.login(email, password)
         } catch (e) {
             // @ts-ignore

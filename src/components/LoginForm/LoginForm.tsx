@@ -1,66 +1,56 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Context} from "../../index";
-import {IGroup} from "../../models/IGroup";
-import GroupService from "../../services/GroupService";
 import {observer} from "mobx-react-lite";
 import {useNavigate} from "react-router-dom";
 import {HOME_ROUTE} from "../../utils/routesPaths";
-import {useFetching} from "../../hooks/useFetching";
+import MyButton from "../UI/MyButton/MyButton";
 
 const LoginForm = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const {auth} = useContext(Context);
-    const [groups, setGroups] = useState<IGroup[]>([]);
     const [groupId, setGroupId] = useState<number>(1);
 
     const navigate = useNavigate();
 
-    const [fetchGroups, isGroupsLoading, groupsError] = useFetching(async () => {
-        const response = await GroupService.fetchGroups();
-        setGroups(response.data);
-    })
-
-    useEffect(() => {
-        if (!groupId) setGroupId(groups[0].id)
-    }, [groups])
-
     useEffect(() => {
         if (auth.isAuth) {
             navigate(HOME_ROUTE);
-        } else {
-            fetchGroups()
         }
     }, [])
 
 
-    return (groupId !== undefined ?
-            <div>
-                <h1>{auth.isAuth ? "Пользователь авторизован" : "Авторизуйтесь"}</h1>
+    return (
+        <div className={'flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50'}>
+            <div className={'w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-md sm:rounded-lg'}>
+                <h1 className={'m-2'}>{auth.isAuth ? "User logged in, wait, please" : "Login, please"}</h1>
                 <input
                     onChange={e => setEmail(e.target.value)}
                     value={email}
                     type="email"
                     placeholder='email...'
+                    className={'block m-2 w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'}
                 />
                 <input
                     onChange={e => setPassword(e.target.value)}
                     value={password}
                     type="password"
                     placeholder='password...'
+                    className={'block m-2 w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'}
                 />
-                <select name="" id="" onChange={(e) => setGroupId(groups.filter(g => g.name === e.target.value)[0].id)}>
-                    {groups.map(g => <option key={g.id}>{g.name}</option>)}
-                </select>
-                <button onClick={() => {
-                    auth.registration(email, password, groupId);
-                }}>Register
-                </button>
-                <button onClick={() => {
-                    auth.login(email, password).then(() => navigate(HOME_ROUTE))
-                }}>Login
-                </button>
-            </div> : <div>loading...</div>
+                <div className={'flex'}>
+                    <MyButton onClick={() => {
+                        auth.registration(email, password)
+                            .then(() => auth.login(email, password)
+                                .then(() => navigate(HOME_ROUTE)))
+                            .catch((e: Error) => alert(e.message))
+                    }} backgroundColor={'black'} color={'white'} text={'Register'}/>
+                    <MyButton onClick={() => {
+                        auth.login(email, password).then(() => navigate(HOME_ROUTE))
+                    }} backgroundColor={'white'} color={'black'} text={'Login'}/>
+                </div>
+            </div>
+        </div>
     );
 };
 

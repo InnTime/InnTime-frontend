@@ -1,8 +1,6 @@
 .myIcon {
-    width: calc(var(--index) * 1.7);
-    height: calc(var(--index) * 1.7);
+    @apply h-9 w-9
 }
 .myIconSmall {
-    width: calc(var(--index) * 0.7);
-    height: calc(var(--index) * 0.7);
+    @apply h-5 w-5
 }

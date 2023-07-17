@@ -14,20 +14,21 @@ interface ScheduleCardListProps {
 const ScheduleCardList = ({cards, isLoading, error}: ScheduleCardListProps) => {
     if (isLoading) return <MyLoader/>
 
-    // if (error) return console.log(error);
+    if (error) return <h1>{error}. Try visit website via Innopolis WiFi</h1>;
+
+    const cardList = cards.selectedCards.map(i => <ScheduleCardItem key={i.name}
+                                                                    card={i}
+                                                                    cards={cards}
+                                                                    isSelected={true}/>)
+        .concat(cards.filteredCards.map(i => <ScheduleCardItem key={i.name}
+                                                               card={i}
+                                                               cards={cards}
+                                                               isSelected={false}/>))
 
 
     return (
         <div className={cl.addSection__scheduleCards}>
-            {cards.selectedCards.map(i => <ScheduleCardItem key={i.name}
-                                                            card={i}
-                                                            cards={cards}
-                                                            isSelected={true}/>)
-                .concat(cards.filteredCards.map(i => <ScheduleCardItem key={i.name}
-                                                                       card={i}
-                                                                       cards={cards}
-                                                                       isSelected={false}/>))
-            }
+            {cardList.length !== 0 ? cardList : <h1>Sorry, no such cards</h1>}
         </div>
     );
 };

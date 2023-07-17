@@ -48,7 +48,7 @@ const AddSection = () => {
     }, [])
 
     return (
-        <div className={cl.addSection}>
+        <div className={cl.addSection} id='add-section'>
             <div className="container">
                 <section className={cl.addSection__header}>
                     <h1 className={cl.addSection__title}>

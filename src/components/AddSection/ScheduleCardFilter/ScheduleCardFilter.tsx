@@ -17,7 +17,7 @@ const ScheduleCardFilter = ({filter, setFilter}: ScheduleCardFilterProps) => {
     const {elective, group} = useContext(Context);
 
     return (
-        <div className={cl.addSection__filtering}>
+        <div className={'flex mb-10 justify-center'}>
             <MySelect
                 options={scheduleCardsTypes}
                 handleOnClick={selectedScheduleCardsType => setFilter({

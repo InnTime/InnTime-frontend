@@ -9,6 +9,7 @@ import {observer} from "mobx-react-lite";
 import {Context} from "../../index";
 import {useNavigate} from "react-router-dom";
 import {LOGIN_ROUTE} from "../../utils/routesPaths";
+import {HashLink} from "react-router-hash-link";
 
 const HomeSection = () => {
 
@@ -30,18 +31,22 @@ const HomeSection = () => {
                         auth.logout().then(() => navigate(LOGIN_ROUTE))
                     }}
                 />
-                <MyButton
-                    text="Add events to my calendar"
-                    icon={<MyIcon type='add'/>}
-                    backgroundColor='black'
-                    color='white'
-                />
+                <HashLink to={'#add-section'}>
+                    <MyButton
+                        text="Add events"
+                        icon={<MyIcon type='add'/>}
+                        backgroundColor='black'
+                        color='white'
+                    />
+                </HashLink>
+                <HashLink to={'#calendar-section'}>
                 <MyButton
                     text="See my schedule"
                     icon={<MyIcon type='calendar' color='black'/>}
                     backgroundColor='yellow'
                     color='black'
                 />
+                </HashLink>
             </div>
         </div>
     );
