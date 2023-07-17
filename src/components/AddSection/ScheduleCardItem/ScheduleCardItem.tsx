@@ -60,8 +60,7 @@ const ScheduleCardItem = ({cards, card, isSelected}: IScheduleCardItem) => {
             backgroundColor="yellow"
             color="black"
             text={card.name}
-            icon={<MyIcon type="download" color="black"/>}
-            icon2={<MyIcon type="remove" color="black" onClick={() => handleRemove(card)}/>}
+            icon={<MyIcon type="remove" color="black" onClick={() => handleRemove(card)}/>}
         />
     }
     return (
@@ -69,8 +68,7 @@ const ScheduleCardItem = ({cards, card, isSelected}: IScheduleCardItem) => {
             backgroundColor="white"
             color="black"
             text={card.name}
-            icon={<MyIcon type="download" color="black"/>}
-            icon2={<MyIcon type="add" color="black" onClick={() => handleAdd(card)}/>}
+            icon={<MyIcon type="add" color="black" onClick={() => handleAdd(card)}/>}
         />
     );
 };

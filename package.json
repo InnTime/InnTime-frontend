@@ -15,8 +15,10 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/axios": "^0.14.0",
     "axios": "^1.4.0",
+    "file-saver": "^2.0.5",
     "gapi-script": "^1.2.0",
     "googleapis": "^121.0.0",
+    "ics": "^3.2.0",
     "mobx": "^6.9.0",
     "mobx-react-lite": "^3.4.3",
     "react": "^18.2.0",
@@ -51,6 +53,7 @@
     ]
   },
   "devDependencies": {
+    "@types/file-saver": "^2.0.5",
     "@types/react": "^18.2.12"
   }
 }
