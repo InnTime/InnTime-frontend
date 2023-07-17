@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/static/css/main.3d5d20e6.css",
+    "main.js": "/static/js/main.2a553166.js",
+    "static/media/background.png": "/static/media/background.742ec5cacda2f01f5fff.png",
+    "static/media/logo.svg": "/static/media/logo.ac24fe30f2f2ea5796dca1cc40977a46.svg",
+    "static/media/calendar-black.svg": "/static/media/calendar-black.701f4d524f6d0fc66461a3952b46bf82.svg",
+    "static/media/homepage-decor-right.svg": "/static/media/homepage-decor-right.dd7c848e9ffcc9c62bf3eacdeb107e41.svg",
+    "static/media/homepage-decor-left.svg": "/static/media/homepage-decor-left.6546b405f18114842eccffd6ffb997e6.svg",
+    "static/media/cloud-download-white.svg": "/static/media/cloud-download-white.b1c34dbca0bda820ecff14617f9e9fca.svg",
+    "static/media/cloud-download-black.svg": "/static/media/cloud-download-black.a15018d6ed7fb42f9b25263a26fc9f98.svg",
+    "static/media/user-black.svg": "/static/media/user-black.c1e9d2e2cb5a27c6359b61e7b9969a5c.svg",
+    "static/media/user-white.svg": "/static/media/user-white.ff57d4c707c7f98fa89538ffe9061409.svg",
+    "static/media/plus-white.svg": "/static/media/plus-white.868fee027cb85d362496634383cd8f2d.svg",
+    "static/media/plus-black.svg": "/static/media/plus-black.17509b5c0f46ef269bf92ecce2fcf6c0.svg",
+    "static/media/logout.svg": "/static/media/logout.a2dc4639e03dae8e9d34da4de0d220e3.svg",
+    "static/media/calendar-white.svg": "/static/media/calendar-white.3af0a7ab62a2191f7e19f7328ffba506.svg",
+    "static/media/minus-black.svg": "/static/media/minus-black.dfab5397c327550e14b2c262e464b37b.svg",
+    "index.html": "/index.html",
+    "static/media/caret-down.svg": "/static/media/caret-down.261280b23441c63b4743f8d1603cb7a8.svg",
+    "static/media/caret-up.svg": "/static/media/caret-up.9b6abb269513a3127cba1e2d073d99fa.svg",
+    "main.3d5d20e6.css.map": "/static/css/main.3d5d20e6.css.map",
+    "main.2a553166.js.map": "/static/js/main.2a553166.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3d5d20e6.css",
+    "static/js/main.2a553166.js"
+  ]
+}
